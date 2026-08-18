@@ -1,0 +1,29 @@
+node_modules/
+
+# Build output
+dist/
+.astro/
+.output
+.vercel
+.netlify
+.wrangler
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+.DS_Store
+*.log
+.vscode/
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# ML projects
+Kanji-Radical-Match-AI/
+Tabelog-ML-Project/
+SNS-Sentiment-Analysis/

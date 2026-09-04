@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Scala HTTP client">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#E04030"/>
+      <stop offset="1" stop-color="#380D09"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer><feComposite operator="over" in2="SourceGraphic"/></filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+
+  <path d="M0 496 C 300 400, 600 544, 900 432 S 1200 480, 1200 496 L 1200 800 L 0 800 Z" fill="#895E5A" opacity="0.28"/>
+  <path d="M0 592 C 300 496, 600 640, 900 528 S 1200 576, 1200 592 L 1200 800 L 0 800 Z" fill="#895E5A" opacity="0.4"/>
+  <path d="M0 688 C 300 592, 600 736, 900 624 S 1200 672, 1200 688 L 1200 800 L 0 800 Z" fill="#895E5A" opacity="0.55"/>
+  <rect width="1200" height="800" fill="url(#glow)"/>
+  <rect width="1200" height="800" filter="url(#grain)" opacity="0.25"/>
+  <g transform="translate(357.7 284.9) scale(0.95)" fill="#ffffff" fill-opacity="1">
+    <path d="M138.66,28.78 C107.2,37.87 57.29,43 30.4,43 h0 V94.35 a.8,.8,0,0,0,.19,.48 c18.35,0 75-6,109.18-15.4 a129,129,0,0,0,17.49-5.81 c4.18-1.88,6.88-3.86,6.88-5.92 V15.91 C164.1,20.79,151.39,25.11,138.66,28.78 Z"/>
+    <path d="M138.66,95.37c-18.83,5.43-44.24,9.47-67.39,11.83-15.54,1.59-30.06,2.42-40.87,2.42h0v51.31a.8,.8,0,0,0,.19,.48c18.35,0,75-6,109.18-15.39a130.38,130.38,0,0,0,17.49-5.81c4.18-1.89,6.88-3.86,6.88-5.92V82.5C164.1,87.37,151.39,91.69,138.66,95.37Z"/>
+    <path d="M138.66,162c-18.83,5.43-44.24,9.46-67.39,11.83-15.56,1.59-30.1,2.42-40.91,2.42V228c18.16,0,75.1-5.95,109.37-15.39,12.63-3.48,24.37-7.44,24.37-11.74V149.08C164.1,154,151.39,158.28,138.66,162Z"/>
+  </g>
+
+  <g transform="translate(614 300) scale(0.4)" opacity="1" fill="#ffffff">
+    <rect x="14" y="16" width="484" height="480" rx="38" fill="none" stroke="#ffffff" stroke-width="30"/>
+    <circle cx="63" cy="70" r="8" fill="#ffffff"/>
+    <circle cx="105" cy="70" r="8" fill="#ffffff"/>
+    <circle cx="147" cy="70" r="8" fill="#ffffff"/>
+    <rect x="16" y="104" width="480" height="22" rx="11" fill="#ffffff"/>
+    <g transform="translate(242.5 274) scale(0.7) translate(-242.5 -274)" fill="#ffffff">
+      <path d="M70 226 h20 v36 h40 v-36 h20 v96 h-20 v-40 h-40 v40 h-20 Z"/>
+      <path d="M178 226 h72 v22 h-25 v74 h-22 v-74 h-25 Z"/>
+      <path d="M271 226 h72 v22 h-25 v74 h-22 v-74 h-25 Z"/>
+      <path d="M361 226 h72 v72 h-50 v24 h-22 v-96 Z M411 248 h-28 v28 h28 v-28 Z"/>
+    </g>
+  </g>
+<!--  <text x="600" y="376" font-family="'Fraunces', Georgia, serif" font-weight="600" font-size="80" fill="#f6f3ec" fill-opacity="0.94" text-anchor="middle" dominant-baseline="central">Scala HTTP Client</text>-->
+  <text x="600" y="740" font-family="monospace" font-size="24" letter-spacing="5" fill="#f6f3ec" fill-opacity="0.6" text-anchor="middle">Scala HTTP Client</text>
+</svg>

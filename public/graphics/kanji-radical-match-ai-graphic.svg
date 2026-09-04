@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="FFNN">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#4cbccb"/>
+      <stop offset="1" stop-color="#164f63"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer><feComposite operator="over" in2="SourceGraphic"/></filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <path d="M0 496 C 300 400, 600 544, 900 432 S 1200 480, 1200 496 L 1200 800 L 0 800 Z" fill="#1f8ba0" opacity="0.28"/>
+  <path d="M0 592 C 300 496, 600 640, 900 528 S 1200 576, 1200 592 L 1200 800 L 0 800 Z" fill="#1f8ba0" opacity="0.4"/>
+  <path d="M0 688 C 300 592, 600 736, 900 624 S 1200 672, 1200 688 L 1200 800 L 0 800 Z" fill="#1f8ba0" opacity="0.55"/>
+  <rect width="1200" height="800" fill="url(#glow)"/>
+  <rect width="1200" height="800" filter="url(#grain)" opacity="0.25"/>
+  <g>
+    <line x1="360" y1="300" x2="600" y2="235" stroke="#f6f3ec" stroke-opacity="0.5" stroke-width="1.5"/>
+    <line x1="360" y1="300" x2="600" y2="345" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="360" y1="300" x2="600" y2="455" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="360" y1="300" x2="600" y2="565" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="360" y1="400" x2="600" y2="235" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="360" y1="400" x2="600" y2="345" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="360" y1="400" x2="600" y2="455" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="360" y1="400" x2="600" y2="565" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="360" y1="500" x2="600" y2="235" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="360" y1="500" x2="600" y2="345" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="360" y1="500" x2="600" y2="455" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="360" y1="500" x2="600" y2="565" stroke="#f6f3ec" stroke-opacity="0.5" stroke-width="1.5"/>
+    <line x1="600" y1="235" x2="840" y2="300" stroke="#f6f3ec" stroke-opacity="0.5" stroke-width="1.5"/>
+    <line x1="600" y1="235" x2="840" y2="400" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="600" y1="235" x2="840" y2="500" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="600" y1="345" x2="840" y2="300" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="600" y1="345" x2="840" y2="400" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="600" y1="345" x2="840" y2="500" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="600" y1="455" x2="840" y2="300" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="600" y1="455" x2="840" y2="400" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="600" y1="455" x2="840" y2="500" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="600" y1="565" x2="840" y2="300" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="600" y1="565" x2="840" y2="400" stroke="#f6f3ec" stroke-opacity="0.22" stroke-width="1.5"/>
+    <line x1="600" y1="565" x2="840" y2="500" stroke="#f6f3ec" stroke-opacity="0.5" stroke-width="1.5"/>
+    <circle cx="360" cy="300" r="19" fill="#f6f3ec" fill-opacity="0.85"/>
+    <circle cx="360" cy="400" r="19" fill="#f6f3ec" fill-opacity="0.85"/>
+    <circle cx="360" cy="500" r="19" fill="#f6f3ec" fill-opacity="0.85"/>
+    <circle cx="600" cy="235" r="15" fill="#f6f3ec" fill-opacity="0.6"/>
+    <circle cx="600" cy="345" r="15" fill="#f6f3ec" fill-opacity="0.6"/>
+    <circle cx="600" cy="455" r="15" fill="#f6f3ec" fill-opacity="0.6"/>
+    <circle cx="600" cy="565" r="15" fill="#f6f3ec" fill-opacity="0.6"/>
+    <circle cx="840" cy="300" r="21" fill="#f6f3ec" fill-opacity="0.95"/>
+    <circle cx="840" cy="400" r="21" fill="#f6f3ec" fill-opacity="0.95"/>
+    <circle cx="840" cy="500" r="21" fill="#f6f3ec" fill-opacity="0.95"/>
+  </g>
+  <text x="600" y="740" font-family="monospace" font-size="24" letter-spacing="5" fill="#f6f3ec" fill-opacity="0.62" text-anchor="middle">Kanji Radical Match · FFNN</text>
+</svg>

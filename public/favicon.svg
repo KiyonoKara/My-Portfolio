@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:#F0F0F0;}
+	.st2{fill:#FFFFFF;}
+</style>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-106.7969" y1="172.8349" x2="-106.7969" y2="171.688" gradientTransform="matrix(64 0 0 -64 6867 11056.7324)">
+	<stop  offset="0" style="stop-color:#17A6C4"/>
+	<stop  offset="1" style="stop-color:#0A4C5C"/>
+</linearGradient>
+<path class="st0" d="M14,0h36c7.7,0,14,6.3,14,14v36c0,7.7-6.3,14-14,14H14C6.3,64,0,57.7,0,50V14C0,6.3,6.3,0,14,0z"/>
+<path class="st1" d="M54,10"/>
+<path class="st2" d="M24.5,32L17,39.5v15h7.5v0c0-7.2,2.9-14.1,8-19.2L47,20.7V9.5L24.5,32z"/>
+<polygon class="st2" points="17,36.2 17,17 24.5,9.5 24.5,19.7 24.5,28.7 "/>
+<path class="st2" d="M26,45.5"/>
+<path class="st2" d="M27,54.5L27,54.5l20,0L35,36.3L34.2,37C29.6,41.7,27,47.9,27,54.5z"/>
+</svg>

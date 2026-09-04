@@ -1,0 +1,36 @@
+---
+interface Props {
+  label?: string;
+  title?: string;
+  description?: string;
+  id?: string;
+  class?: string;
+  align?: "left" | "center";
+}
+const { label, title, description, id, class: className, align = "left" } = Astro.props;
+---
+
+<section id={id} class:list={["mx-auto max-w-7xl px-6 py-16 sm:py-20 lg:px-10", className]}>
+  {
+    (label || title || description) && (
+      <header class:list={["reveal max-w-2xl", align === "center" && "mx-auto text-center"]}>
+        {label && (
+          <p class="mb-3 flex items-center gap-2 font-display text-sm italic tracking-[0.01em] text-cavern">
+            {align === "center" && <span class="h-px w-6 bg-cavern/50" />}
+            {label}
+            <span class="h-px w-6 bg-cavern/50" />
+          </p>
+        )}
+        {title && (
+          <h2 class="font-display text-3xl font-semibold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl">
+            {title}
+          </h2>
+        )}
+        {description && (
+          <p class="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">{description}</p>
+        )}
+      </header>
+    )
+  }
+  <slot />
+</section>

@@ -1,0 +1,52 @@
+---
+import Base from "@/layouts/Base.astro";
+import Section from "@/components/Section.astro";
+import PhotoGallery from "@/components/PhotoGallery.astro";
+import { getHobbies } from "@/lib/content";
+import { withBase } from "@/lib/base";
+
+const hobbies = await getHobbies();
+---
+
+<Base title="Studio" description="Hobbies">
+  <section class="mx-auto max-w-7xl px-6 lg:px-10 pb-8 pt-16 sm:pt-20">
+    <p class="reveal mb-3 font-display text-sm italic tracking-[0.01em] text-cavern">Studio</p>
+    <h1 class="reveal font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
+      Hobbies
+    </h1>
+    <p class="reveal mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+      Photography, music, and building things in general
+    </p>
+  </section>
+
+  {/* Hobbies list */}
+  <Section class="pt-6">
+    <div class="grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        hobbies.map((h) =>
+          h.data.cover ? (
+            <article class="reveal group flex cursor-default flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-colors duration-500 ease-out hover:border-cavern/40">
+              <div class="relative aspect-[4/3] overflow-hidden">
+                <img src={withBase(h.data.cover)} alt="" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              </div>
+              <div class="flex flex-1 flex-col p-5">
+                <h2 class="font-display text-lg font-semibold">{h.data.title}</h2>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{h.data.description}</p>
+              </div>
+            </article>
+          ) : (
+            <article class="reveal group flex cursor-default flex-col rounded-2xl border border-border bg-card p-5 shadow-sm transition-colors duration-500 ease-out hover:border-cavern/40">
+              <h2 class="font-display text-base font-bold leading-snug">{h.data.title}</h2>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{h.data.description}</p>
+            </article>
+          )
+        )
+      }
+    </div>
+  </Section>
+
+  {/* Photo gallery */}
+  <Section label="Photography" title="Selected photos" description="A few selected photos" class="pt-0">
+    <div class="mt-8"><PhotoGallery /></div>
+  </Section>
+</Base>

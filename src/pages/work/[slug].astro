@@ -1,0 +1,200 @@
+---
+import { render } from "astro:content";
+import Base from "@/layouts/Base.astro";
+import DemoEmbed from "@/components/DemoEmbed.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import Icon from "@/components/Icon.astro";
+import Dot from "@/components/Dot.astro";
+import { getProjects, accentMap, projectRepoUrl, kindLabel } from "@/lib/content";
+import ResponsiveImage from "@/components/ResponsiveImage.astro";
+import { withBase } from "@/lib/base";
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: {
+      project,
+      prev: projects[i - 1] ?? null,
+      next: projects[i + 1] ?? null,
+    },
+  }));
+}
+
+const { project, prev, next } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+const a = accentMap[data.accent];
+const cover = data.cover ? withBase(data.cover) : null;
+const projectImage = data.image ?? null;
+const repoUrl = projectRepoUrl(data);
+---
+
+<Base title={data.title} description={data.description} ogImage={data.cover ?? undefined}>
+  <article>
+    {/* Hero: dominant cavern atmosphere with the project's accent threaded in */}
+    <header class="cavern-atmosphere paper-grain relative overflow-hidden border-b border-border/70">
+      {/* Accent hairline at the very top of the page. */}
+      <div class:list={["absolute inset-x-0 top-0 h-[3px]", a.bg]}></div>
+      {cover && (
+        <div class="absolute inset-0 -z-10">
+          <img src={cover} alt="" class="size-full object-cover opacity-[0.1]" />
+          <div class="absolute inset-0 bg-gradient-to-b from-background/50 to-background"></div>
+        </div>
+      )}
+      <div class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+        <a href={withBase("/work")} class="reveal inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground transition-colors hover:text-cavern">
+          <Icon name="arrow-left" class="size-3.5" />
+          All projects
+        </a>
+        <div class="reveal mt-6 flex flex-wrap items-center gap-2 [transition-delay:60ms]">
+          {data.tagline && <span class:list={["text-xs font-semibold uppercase tracking-wider", a.text]}>{data.tagline}</span>}
+          {data.tagline && <Dot class="text-muted-foreground" />}
+          <span class="font-mono text-xs text-muted-foreground">{data.period ?? data.year}</span>
+        </div>
+        <h1 class="reveal mt-3 font-display text-4xl font-semibold leading-[1.05] tracking-tight [transition-delay:120ms] sm:text-6xl">{data.title}</h1>
+        <p class="reveal mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground [transition-delay:180ms]">{data.description}</p>
+
+        {(repoUrl || data.links.live || data.links.writeup) && (
+          <div class="reveal mt-8 flex flex-wrap gap-3 [transition-delay:240ms]">
+            {data.links.live && (
+              <a href={data.links.live} rel="noopener noreferrer" target="_blank" class={`${buttonVariants({ size: "sm" })} gap-2`}>
+                Live
+                <Icon name="arrow-up-right" class="size-4" />
+              </a>
+            )}
+            {repoUrl && (
+              <a href={repoUrl} rel="noopener noreferrer" target="_blank" class={`${buttonVariants({ variant: "outline", size: "sm" })} gap-2`}>
+                <Icon name="github" class="size-4" />
+                View source
+              </a>
+            )}
+            {data.links.writeup && (
+              <a href={data.links.writeup} rel="noopener noreferrer" target="_blank" class={`${buttonVariants({ variant: "ghost", size: "sm" })} gap-2`}>
+                Writeup
+                <Icon name="arrow-up-right" class="size-4" />
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    </header>
+
+    {/* Page image (full) */}
+    {projectImage && (
+      <div class="reveal mx-auto max-w-4xl px-6 pt-12">
+        <ResponsiveImage
+          path={projectImage}
+          alt={`${data.title} image`}
+          sizes="(min-width: 896px) 56rem, 100vw"
+          class="block"
+          imgClass="w-full rounded-2xl border border-border shadow-md"
+        />
+      </div>
+    )}
+
+    {/* Live demo */}
+    {data.demo && (
+      <div class="reveal mx-auto max-w-4xl px-6 pt-12">
+        <DemoEmbed id={data.demo} />
+      </div>
+    )}
+
+    {/* ── Body: sticky metadata rail beside the case-study prose ─────────────── */}
+    <div class="seigaiha mx-auto max-w-5xl px-6 py-12 lg:grid lg:grid-cols-[210px_1fr] lg:gap-14">
+      <aside class="reveal mb-10 lg:mb-0">
+        <div class:list={["flex flex-col gap-6 border-l-2 pl-5 lg:sticky lg:top-24", a.border]}>
+          <div>
+            <span class="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Period</span>
+            <p class="mt-1 text-sm text-foreground/85">{data.period ?? data.year}</p>
+          </div>
+          {data.role && (
+            <div>
+              <span class="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Role</span>
+              <p class="mt-1 text-sm text-foreground/85">{data.role}</p>
+            </div>
+          )}
+          {data.kind.length > 0 && (
+            <div>
+              <span class="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Kind</span>
+              <div class="mt-1.5 flex flex-wrap gap-1.5">
+                {data.kind.map((k) => (
+                  <span class:list={["inline-flex rounded-full border px-2.5 py-0.5 text-xs font-medium", a.border, a.text]}>
+                    {kindLabel[k] ?? k}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          {data.stack.length > 0 && (
+            <div>
+              <span class="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Stack</span>
+              <div class="mt-2 flex flex-wrap gap-1.5">
+                {data.stack.map((s) => <Badge variant="tag" className="font-mono text-[10px]">{s}</Badge>)}
+              </div>
+            </div>
+          )}
+          {(repoUrl || data.links.live) && (
+            <div>
+              <span class="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Links</span>
+              <div class="mt-2 flex flex-col gap-1.5 text-sm">
+                {data.links.live && (
+                  <a href={data.links.live} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-cavern hover:underline">
+                    Live site<Icon name="arrow-up-right" class="size-3.5" />
+                  </a>
+                )}
+                {repoUrl && (
+                  <a href={repoUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-cavern hover:underline">
+                    <Icon name="github" class="size-3.5" />Source
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </aside>
+
+      <div class="reveal prose [transition-delay:80ms]"><Content /></div>
+    </div>
+
+    {/* Gallery */}
+    {data.gallery.length > 0 && (
+      <div class="mx-auto max-w-4xl px-6 pb-8">
+        <div class="grid gap-4 sm:grid-cols-2">
+          {data.gallery.map((g) => (
+            <ResponsiveImage
+              path={g}
+              alt={`${data.title} detail`}
+              sizes="(min-width: 640px) 50vw, 100vw"
+              class="block"
+              imgClass="reveal w-full rounded-xl border border-border"
+            />
+          ))}
+        </div>
+      </div>
+    )}
+
+    {/* Prev / next */}
+    <nav class="mx-auto flex max-w-4xl flex-col gap-4 border-t border-border/70 px-6 py-10 sm:flex-row sm:justify-between" aria-label="More projects">
+      {prev ? (
+        <a href={withBase(`/work/${prev.id}`)} class="group flex-1 rounded-xl border border-border p-4 transition-colors hover:border-cavern/40">
+          <span class="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            <Icon name="arrow-left" class="size-3.5" />
+            Previous
+          </span>
+          <p class="mt-1 font-display font-semibold group-hover:text-cavern">{prev.data.title}</p>
+        </a>
+      ) : <span class="flex-1"></span>}
+      {next ? (
+        <a href={withBase(`/work/${next.id}`)} class="group flex-1 rounded-xl border border-border p-4 text-right transition-colors hover:border-cavern/40">
+          <span class="inline-flex items-center justify-end gap-1.5 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            Next
+            <Icon name="arrow-right" class="size-3.5" />
+          </span>
+          <p class="mt-1 font-display font-semibold group-hover:text-cavern">{next.data.title}</p>
+        </a>
+      ) : <span class="flex-1"></span>}
+    </nav>
+  </article>
+</Base>

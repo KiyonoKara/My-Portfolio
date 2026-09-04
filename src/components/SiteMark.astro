@@ -1,0 +1,33 @@
+---
+import { site } from "@/config/site";
+import { withBase } from "@/lib/base";
+
+interface Props {
+  // shared classes for monogram and favicon icons
+  class?: string;
+  // classes for colors and shadows for default monogram favicon
+  monogramClass?: string;
+  // classes for favicon image to render with noisier backgrounds
+  faviconClass?: string;
+}
+
+const { class: cls = "", monogramClass = "", faviconClass = "" } = Astro.props;
+const showFavicon = site.brandMark === "favicon";
+---
+
+{
+  showFavicon ? (
+    <img
+      src={withBase("/favicon.svg")}
+      alt=""
+      aria-hidden="true"
+      width="32"
+      height="32"
+      class={`size-8 object-contain ${faviconClass} ${cls}`}
+    />
+  ) : (
+    <span
+      class={`grid size-8 place-items-center rounded-md ${monogramClass} ${cls}`}
+      aria-hidden="true">K</span>
+  )
+}

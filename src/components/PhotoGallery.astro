@@ -1,0 +1,26 @@
+---
+import { photos } from "@/config/photos";
+import ResponsiveImage from "@/components/ResponsiveImage.astro";
+---
+
+<div class="columns-2 gap-4 md:columns-3 [&>*]:mb-4">
+  {
+    photos.map((photo) => (
+      <figure class="reveal group relative break-inside-avoid overflow-hidden rounded-xl border border-border bg-card">
+        <ResponsiveImage
+          path={photo.src}
+          alt={photo.alt}
+          sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+          class="block"
+          imgClass="w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+        />
+        {(photo.caption || photo.location) && (
+          <figcaption class="pointer-events-none absolute inset-x-0 bottom-0 flex min-h-18 items-end justify-between gap-2 bg-gradient-to-t from-black/95 via-black/60 to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <span class="text-xs font-medium text-white/90">{photo.caption}</span>
+            {photo.location && <span class="font-mono text-[10px] uppercase tracking-widest text-white/80">{photo.location}</span>}
+          </figcaption>
+        )}
+      </figure>
+    ))
+  }
+</div>

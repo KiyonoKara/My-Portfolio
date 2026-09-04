@@ -1,0 +1,69 @@
+---
+import { imageEntry } from "@/lib/img";
+import { withBase } from "@/lib/base";
+
+interface Props {
+  // public path
+  path: string;
+  alt: string;
+  // CSS `sizes` hint so browser picks the right srcset candidate
+  sizes?: string;
+  // applied to the wrapping <picture>
+  class?: string;
+  // applied to inner <img>
+  imgClass?: string;
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low";
+  width?: number;
+  height?: number;
+  // pass-through onerror to hide broken content behind a skeleton
+  onerror?: string;
+}
+
+const {
+  path,
+  alt,
+  sizes = "100vw",
+  class: cls,
+  imgClass = "",
+  loading = "lazy",
+  fetchpriority,
+  width,
+  height,
+  onerror,
+} = Astro.props;
+
+const entry = imageEntry(path);
+const priority = fetchpriority ? { fetchpriority } : {};
+---
+
+{
+  entry ? (
+    <picture class={cls}>
+      <source type="image/webp" srcset={entry.srcset} sizes={sizes} />
+      <img
+        src={entry.fallback}
+        width={width ?? entry.width}
+        height={height ?? entry.height}
+        loading={loading}
+        decoding="async"
+        alt={alt}
+        class={imgClass}
+        onerror={onerror}
+        {...priority}
+      />
+    </picture>
+  ) : (
+    <img
+      src={withBase(path)}
+      alt={alt}
+      loading={loading}
+      decoding="async"
+      {width}
+      {height}
+      class={cls ? `${cls} ${imgClass}` : imgClass}
+      onerror={onerror}
+      {...priority}
+    />
+  )
+}

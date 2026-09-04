@@ -1,0 +1,45 @@
+---
+// light-default theme toggle
+// no-flash init script lives in Base.astro <head>
+---
+<button
+  id="theme-toggle"
+  type="button"
+  class="inline-flex size-10 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-secondary outline-none focus-visible:ring-[3px] focus-visible:ring-ring/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background cursor-pointer"
+  aria-label="Switch to dark theme"
+  aria-pressed="false"
+  title="Toggle light / dark"
+>
+  <svg class="theme-icon-sun size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+  </svg>
+  <svg class="theme-icon-moon size-5 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+</button>
+
+<script is:inline>
+  (() => {
+    const btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    const sun = btn.querySelector(".theme-icon-sun");
+    const moon = btn.querySelector(".theme-icon-moon");
+    const sync = () => {
+      const dark = document.documentElement.classList.contains("dark");
+      sun?.classList.toggle("hidden", dark);
+      moon?.classList.toggle("hidden", !dark);
+      // announce current state and next action
+      btn.setAttribute("aria-pressed", String(dark));
+      btn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+    };
+    sync();
+    btn.addEventListener("click", () => {
+      const dark = document.documentElement.classList.toggle("dark");
+      try {
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      } catch {}
+      sync();
+    });
+  })();
+</script>

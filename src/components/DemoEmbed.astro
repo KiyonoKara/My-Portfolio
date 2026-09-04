@@ -1,0 +1,28 @@
+---
+import KanjiDemo from "@/components/demos/KanjiDemo.tsx";
+import TabelogDemo from "@/components/demos/TabelogDemo.tsx";
+import SentimentDemo from "@/components/demos/SentimentDemo.tsx";
+import { demoMeta } from "@/lib/content";
+
+interface Props {
+  id: "kanji" | "tabelog" | "sentiment";
+}
+const { id } = Astro.props;
+const meta = demoMeta[id];
+---
+
+<div class="rounded-2xl border border-cavern/30 bg-card p-1 shadow-sm">
+  <div class="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-cavern/5 px-4 py-3">
+    <div>
+      <p class="font-mono text-[11px] uppercase tracking-widest text-cavern">Runs live in your browser</p>
+      <h2 class="font-display text-lg font-semibold">{meta.title}</h2>
+      <p class="mt-0.5 text-xs text-muted-foreground">One selected model from this project, not the whole thing.</p>
+    </div>
+    <span class="shrink-0 font-mono text-[11px] text-muted-foreground">no data leaves this page</span>
+  </div>
+  <div class="p-4 sm:p-6">
+    {id === "kanji" && <KanjiDemo client:visible />}
+    {id === "tabelog" && <TabelogDemo client:visible />}
+    {id === "sentiment" && <SentimentDemo client:visible />}
+  </div>
+</div>

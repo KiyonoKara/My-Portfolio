@@ -1,0 +1,11 @@
+---
+// a separator dot rendered as an element, not a '.' character
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+<span
+  class:list={["inline-block size-1 shrink-0 rounded-full bg-current align-middle opacity-40", className]}
+  aria-hidden="true"
+></span>

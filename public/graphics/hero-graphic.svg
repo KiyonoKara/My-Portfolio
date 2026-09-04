@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="Blue cavern placeholder backdrop">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#4cbccb"/>
+      <stop offset="1" stop-color="#164f63"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.22" cy="0.1" r="0.95">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mouth" cx="0.7" cy="0.32" r="0.5">
+      <stop offset="0" stop-color="#d8f4f8" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#d8f4f8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer><feComposite operator="over" in2="SourceGraphic"/></filter>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+  <rect width="1600" height="1000" fill="url(#mouth)"/>
+  <path d="M0 560 C 400 460, 800 640, 1200 500 S 1600 560, 1600 580 L 1600 1000 L 0 1000 Z" fill="#1f8ba0" opacity="0.24"/>
+  <path d="M0 660 C 400 560, 800 740, 1200 600 S 1600 660, 1600 680 L 1600 1000 L 0 1000 Z" fill="#155f73" opacity="0.34"/>
+  <path d="M0 760 C 400 660, 800 840, 1200 700 S 1600 760, 1600 780 L 1600 1000 L 0 1000 Z" fill="#123f52" opacity="0.5"/>
+  <path d="M0 860 C 400 780, 800 940, 1200 820 S 1600 860, 1600 880 L 1600 1000 L 0 1000 Z" fill="#0e2f40" opacity="0.62"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+  <rect width="1600" height="1000" filter="url(#grain)" opacity="0.22"/>
+</svg>

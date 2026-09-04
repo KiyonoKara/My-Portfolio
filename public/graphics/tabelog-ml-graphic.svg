@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Tabelog ML Project">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#FFAA00"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.5"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer><feComposite operator="over" in2="SourceGraphic"/></filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <path d="M0 496 C 300 400, 600 544, 900 432 S 1200 480, 1200 496 L 1200 800 L 0 800 Z" fill="#FF9600" opacity="0.2"/>
+  <path d="M0 592 C 300 496, 600 640, 900 528 S 1200 576, 1200 592 L 1200 800 L 0 800 Z" fill="#FF9600" opacity="0.4"/>
+  <path d="M0 688 C 300 592, 600 736, 900 624 S 1200 672, 1200 688 L 1200 800 L 0 800 Z" fill="#FFAA00" opacity="0.6"/>
+  <rect width="1200" height="800" fill="url(#glow)"/>
+  <rect width="1200" height="800" filter="url(#grain)" opacity="0.25"/>
+  <g>
+    <polygon points="600.0,302.0 677.9,347.0 677.9,437.0 600.0,482.0 522.1,437.0 522.1,347.0" fill="none" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="2"/>
+    <polygon points="600.0,234.5 736.4,313.2 736.4,470.8 600.0,549.5 463.6,470.8 463.6,313.2" fill="none" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="2"/>
+    <polygon points="600.0,167.0 794.9,279.5 794.9,504.5 600.0,617.0 405.1,504.5 405.1,279.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="2"/>
+    <line x1="600" y1="392" x2="600.0" y2="167.0" stroke="#f6f3ec" stroke-opacity="0.14" stroke-width="1.5"/>
+    <line x1="600" y1="392" x2="794.9" y2="279.5" stroke="#f6f3ec" stroke-opacity="0.14" stroke-width="1.5"/>
+    <line x1="600" y1="392" x2="794.9" y2="504.5" stroke="#f6f3ec" stroke-opacity="0.14" stroke-width="1.5"/>
+    <line x1="600" y1="392" x2="600.0" y2="617.0" stroke="#f6f3ec" stroke-opacity="0.14" stroke-width="1.5"/>
+    <line x1="600" y1="392" x2="405.1" y2="504.5" stroke="#f6f3ec" stroke-opacity="0.14" stroke-width="1.5"/>
+    <line x1="600" y1="392" x2="405.1" y2="279.5" stroke="#f6f3ec" stroke-opacity="0.14" stroke-width="1.5"/>
+    <polygon points="600.0,268.2 740.3,311.0 697.4,448.2 600.0,572.0 479.2,461.8 512.3,341.4" fill="#FFFFFF" fill-opacity="0.1" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="5"/>
+    <polygon points="600.0,234.5 752.0,304.2 728.6,466.2 600.0,583.2 455.8,475.2 467.5,315.5" fill="#FFFFFF" fill-opacity="0.15" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="2.5"/>
+    <circle cx="600.0" cy="234.5" r="5" fill="#FFFFFF"/>
+    <circle cx="752.0" cy="304.2" r="5" fill="#FFFFFF"/>
+    <circle cx="728.6" cy="466.2" r="5" fill="#FFFFFF"/>
+    <circle cx="600.0" cy="583.2" r="5" fill="#FFFFFF"/>
+    <circle cx="455.8" cy="475.2" r="5" fill="#FFFFFF"/>
+    <circle cx="467.5" cy="315.5" r="5" fill="#FFFFFF"/>
+  </g>
+  <text x="600" y="740" font-family="monospace" font-size="24" letter-spacing="5" fill="#FFFFFF" fill-opacity="0.65" text-anchor="middle">Tabelog · Collaborative Filtering</text>
+</svg>

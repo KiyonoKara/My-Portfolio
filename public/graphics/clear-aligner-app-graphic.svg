@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Clinic placeholder">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#854E9C"/>
+      <stop offset="1" stop-color="#463366"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer><feComposite operator="over" in2="SourceGraphic"/></filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <path d="M0 496 C 300 400, 600 544, 900 432 S 1200 480, 1200 496 L 1200 800 L 0 800 Z" fill="#854E9C" opacity="0.28"/>
+  <path d="M0 592 C 300 496, 600 640, 900 528 S 1200 576, 1200 592 L 1200 800 L 0 800 Z" fill="#854E9C" opacity="0.4"/>
+  <path d="M0 688 C 300 592, 600 736, 900 624 S 1200 672, 1200 688 L 1200 800 L 0 800 Z" fill="#854E9C" opacity="0.55"/>
+  <rect width="1200" height="800" fill="url(#glow)"/>
+  <rect width="1200" height="800" filter="url(#grain)" opacity="0.25"/>
+    <g transform="translate(600 376) scale(15) translate(-12 -12)" fill="#ffffff" fill-opacity="1">
+        <path d="M13,17v-2h2c0.6,0,1-0.4,1-1v0c0-0.6-0.4-1-1-1h-2v-2c0-0.6-0.4-1-1-1h0c-0.6,0-1,0.4-1,1v2H9
+      c-0.6,0-1,0.4-1,1v0c0,0.6,0.4,1,1,1h2v2c0,0.6,0.4,1,1,1h0C12.6,18,13,17.6,13,17z"/>
+        <path d="M18,3L18,3l0,3h1v13.9c0,0.6-0.5,1.1-1.1,1.1H6.1C5.5,21,5,20.5,5,19.9V6h1V3h0C3.8,3,2,4.8,2,7v13
+      c0,2.2,1.8,4,4,4h12c2.2,0,4-1.8,4-4V7C22,4.8,20.2,3,18,3z"/>
+        <path d="M7,6h10V3c0-0.6-0.4-1-1-1h-1.2c-0.4-1.2-1.5-2-2.8-2S9.6,0.8,9.2,2H8C7.4,2,7,2.4,7,3V6z"/>
+    </g>
+<!--  <text x="600" y="376" font-family="'Fraunces', Georgia, serif" font-weight="600" font-size="87" fill="#f6f3ec" fill-opacity="0.94" text-anchor="middle" dominant-baseline="central">Clear Aligner App</text>-->
+  <text x="600" y="740" font-family="monospace" font-size="24" letter-spacing="5" fill="#f6f3ec" fill-opacity="0.6" text-anchor="middle">Clear Aligner App</text>
+</svg>

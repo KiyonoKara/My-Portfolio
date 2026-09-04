@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="Signal placeholder">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#48CF60"/>
+      <stop offset="1" stop-color="#053828"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="0.5" stop-color="#24AD3D" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer><feComposite operator="over" in2="SourceGraphic"/></filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <path d="M0 496 C 300 400, 600 544, 900 432 S 1200 480, 1200 496 L 1200 800 L 0 800 Z" fill="#24AD3D" opacity="0.28"/>
+  <path d="M0 592 C 300 496, 600 640, 900 528 S 1200 576, 1200 592 L 1200 800 L 0 800 Z" fill="#24AD3D" opacity="0.4"/>
+  <path d="M0 688 C 300 592, 600 736, 900 624 S 1200 672, 1200 688 L 1200 800 L 0 800 Z" fill="#24AD3D" opacity="0.55"/>
+  <rect width="1200" height="800" fill="url(#glow)"/>
+  <rect width="1200" height="800" filter="url(#grain)" opacity="0.25"/>
+    <g transform="translate(600 412) scale(8.5) translate(-22.665 -22.665)">
+        <path d="M1.33,4c0-1.47,1.19-2.67,2.67-2.67H41.33c1.47,0,2.67,1.19,2.67,2.67V41.33c0,1.47-1.19,2.67-2.67,2.67H4c-1.47,0-2.67-1.19-2.67-2.67V4Z" fill="none" stroke="#fff" stroke-width="2.67" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M1.33,12H44" fill="none" stroke="#fff" stroke-width="2.67" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12,1.33V12" fill="none" stroke="#fff" stroke-width="2.67" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M24.89,16.67v4.44c0,.61,.5,1.11,1.11,1.11h4.44" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14.89,26.67v-7.78c0-1.23,.99-2.22,2.22-2.22h7.78l5.56,5.56v4.44" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14.89,36.67h15.56" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14.89,33.33h15.56" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14.89,30h15.56" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+
+<!--  <text x="600" y="376" font-family="'Fraunces', Georgia, serif" font-weight="600" font-size="116" fill="#f6f3ec" fill-opacity="0.94" text-anchor="middle" dominant-baseline="central">Dev</text>-->
+  <text x="600" y="740" font-family="monospace" font-size="24" letter-spacing="5" fill="#f6f3ec" fill-opacity="0.6" text-anchor="middle">DevCred</text>
+</svg>
+
+
+

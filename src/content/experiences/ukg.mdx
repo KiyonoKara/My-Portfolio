@@ -1,0 +1,24 @@
+---
+org: "UKG"
+role: "Generative AI Software Engineer"
+location: "Lowell, MA"
+period: "Sep – Dec 2024"
+start: 202409
+type: "coop"
+featured: true
+description: "Built an internal GitHub repository assistant that turns a whole codebase into structured, LLM-ready context for developer Q&A."
+bullets:
+  - "Designed and built a tool that downloads a codebase from a given URL, parses many formats (including images, PDFs, and tabular data), and produces structured, metadata-tagged LLM-ready text."
+  - "Cut processing time and token cost with multi-threading and smart file skipping (binaries, static assets, unreadable files); auto-routed files over 2M tokens from GPT-4o (Azure) to Gemini 1.5 Pro (Vertex AI)."
+  - "Extended it into a working VSCode extension where a developer could submit a GitHub URL, get processed, queryable output directly in the editor."
+  - "Wrote internal GenAI documentation and onboarding (Confluence, SharePoint, GitHub) to speed up adoption for future employees."
+tags: ["Python", "TypeScript", "Azure", "GCP", "OpenAI API", "Vertex AI", "RAG", "VSCode"]
+---
+
+My co-op was on UKG's internal generative-AI enablement team. After onboarding (Jira, PGP
+keys, article reviews) I inherited a Python script that traversed a directory and
+converted files to LLM-friendly text, and built a repository assistant on top of it. The program downloads
+a requested GitHub repo with credentials, walks it with guardrails to avoid noise and
+static files, interprets images and video, delegates PDFs and tabular files, and writes
+metadata to every output. I ended the co-op on a good note with a working VSCode
+extension to pass onto the next developer who takes on the project.

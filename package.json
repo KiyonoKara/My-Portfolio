@@ -1,0 +1,48 @@
+{
+  "name": "my-portfolio",
+  "version": "1.0.0",
+  "description": "My dev portfolio",
+  "type": "module",
+  "packageManager": "pnpm@11.15.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "images": "node scripts/optimize-images.mjs",
+    "export:demos": "python3 scripts/export_kanji.py && python3 scripts/export_sns_lr.py && python3 scripts/export_tabelog.py"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/react": "^4.3.0",
+    "@astrojs/sitemap": "^3.4.0",
+    "@fontsource-variable/bricolage-grotesque": "^5.2.5",
+    "@fontsource-variable/fraunces": "^5.2.5",
+    "@fontsource-variable/jetbrains-mono": "^5.2.5",
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-tabs": "^1.1.3",
+    "astro": "^5.12.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.484.0",
+    "motion": "^12.0.0",
+    "papaparse": "^5.5.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "recharts": "^2.15.0",
+    "tailwind-merge": "^3.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@types/papaparse": "^5.3.15",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "shadcn": "^4.13.1",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.1.0",
+    "tw-animate-css": "^1.2.5",
+    "typescript": "^5.7.3"
+  }
+}

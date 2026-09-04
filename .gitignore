@@ -31,3 +31,5 @@ SNS-Sentiment-Analysis/
 # Full-res images
 # Optimize with `pnpm images` and keep a backup of the originals
 raw-images/
+# Ref images for placeholding or testing
+ref_images/

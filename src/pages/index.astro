@@ -1,0 +1,239 @@
+---
+import Base from "@/layouts/Base.astro";
+import Section from "@/components/Section.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import Icon from "@/components/Icon.astro";
+import Dot from "@/components/Dot.astro";
+import ResponsiveImage from "@/components/ResponsiveImage.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { getFeaturedProjects, demoMeta } from "@/lib/content";
+import { site } from "@/config/site";
+import { education, certifications } from "@/config/about";
+import { withBase } from "@/lib/base";
+import { imageEntry } from "@/lib/img";
+
+const featured = await getFeaturedProjects();
+const heroPhoto = "/photos/otaru_view.jpeg";
+const heroEntry = imageEntry(heroPhoto);
+const demos = ["kanji", "tabelog", "sentiment"] as const;
+
+// transition-delay classes kept as literals, so Tailwind's JIT sees it and is
+// used to slowly lag the work grid animations
+const cardDelay = [
+  "[transition-delay:0ms]",
+  "[transition-delay:70ms]",
+  "[transition-delay:140ms]",
+  "[transition-delay:210ms]",
+  "[transition-delay:280ms]",
+  "[transition-delay:350ms]",
+] as const;
+---
+
+<Base intro>
+  {/*
+    Preload the hero image so the LCP resource starts fetching as early as
+    possible. imagesrcset + imagesizes mirror the hero <picture>, so the
+    browser prefetches the exact width candidate it will render (single fetch,
+    no wasted bytes). The manifest lookup is present for otaru_view, and when
+    it is not we simply omit the preload rather than guessing a URL.
+  */}
+  {heroEntry && (
+    <Fragment slot="head">
+      <link
+        rel="preload"
+        as="image"
+        type="image/webp"
+        href={heroEntry.src}
+        imagesrcset={heroEntry.srcset}
+        imagesizes="100vw"
+        fetchpriority="high"
+      />
+    </Fragment>
+  )}
+
+  {/* hero page with a full-bleed photo with the intro overlaid on top */}
+  <section class="relative w-full overflow-hidden">
+    <div class="relative h-[88vh] min-h-[620px] w-full">
+      {/* the image dissolves into the page background below via a
+          short, eased alpha ramp with .hero-fade with no hard edge in either theme */}
+      <div class="hero-fade absolute inset-0">
+        <ResponsiveImage
+          path={heroPhoto}
+          alt="Homepage Image"
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+          class="absolute inset-0"
+          imgClass="size-full object-cover"
+        />
+        {/* for legibility, a centered pool that darkens behind the intro
+            and buttons so the bright water never washes out the text. Fades
+            well before the image dissolves into the page */}
+        <div class="absolute inset-0 bg-[radial-gradient(130%_110%_at_50%_50%,rgba(10,22,28,0.72),rgba(10,22,28,0.42)_45%,transparent_82%)]"></div>
+      </div>
+
+      {/* caption chip */}
+      <div class="absolute right-4 top-4 flex items-center gap-2 rounded-lg border border-white/20 bg-black/30 px-3 py-1.5 backdrop-blur sm:right-6 sm:top-6">
+        <span class="font-mono text-[11px] uppercase tracking-widest text-white/85">小樽天狗山</span>
+        <Dot class="opacity-70" />
+        <span class="font-mono text-[11px] uppercase tracking-widest text-white/70">Otaru</span>
+      </div>
+
+      {/* overlaid intro, centered both ways, independent of the fade */}
+      <div class="relative mx-auto flex h-full max-w-7xl items-center justify-center px-6 lg:px-10">
+        <div class="mx-auto max-w-2xl text-center">
+          <h1 class="reveal font-display text-5xl font-semibold leading-[0.98] tracking-tight text-white [text-shadow:0_0_10px_rgba(10,22,28,0.55),0_2px_24px_rgba(10,22,28,0.35)] [transition-delay:60ms] sm:text-6xl md:text-7xl">
+            <span class="rough-underline text-cavern-glow">{site.name}</span>
+          </h1>
+          <p class="reveal mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/85 [text-shadow:0_0_8px_rgba(10,22,28,0.5),0_1px_16px_rgba(10,22,28,0.3)] [transition-delay:140ms]">
+            {site.description}
+          </p>
+          <div class="reveal mt-8 flex flex-wrap items-center justify-center gap-3 [transition-delay:220ms]">
+            <a href={withBase("/work")} class={buttonVariants({ size: "lg" })}>See my work</a>
+            <a
+              href={withBase("/playground")}
+              class="inline-flex h-12 items-center justify-center rounded-lg border border-white/70 bg-black/35 px-7 text-base font-semibold text-white backdrop-blur transition-all duration-[100ms] ease-out hover:-translate-y-0.5 hover:bg-black/25 active:translate-y-0 active:scale-[0.97] motion-reduce:transform-none motion-reduce:translate-none motion-reduce:transition-none"
+            >
+              Try the demos
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* brushed seam from hero to work section */}
+  <div class="reveal flex justify-center pt-14 sm:pt-16">
+    <div class="noren-divider" aria-hidden="true"><span class="noren-mark"></span></div>
+  </div>
+
+  {/* feature projects */}
+  <Section
+    label="Selected work"
+    title="Things I've built"
+    description="Full-stack projects, machine learning, systems. Machine learning projects can be tried out in the playground in your browser."
+    class="seigaiha"
+  >
+    <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        featured.map((project, i) => (
+          <div class:list={["reveal", cardDelay[Math.min(i, cardDelay.length - 1)]]}>
+            <ProjectCard project={project} class="h-full" />
+          </div>
+        ))
+      }
+    </div>
+    <div class="mt-8">
+      <a href={withBase("/work")} class={`${buttonVariants({ variant: "outline" })} gap-2`}>
+        All projects
+        <Icon name="arrow-right" class="size-4" />
+      </a>
+    </div>
+  </Section>
+
+  {/* about teaser */}
+  <section class="paper-grain relative border-y border-border/40 bg-secondary/40">
+    <div class="mx-auto grid max-w-7xl gap-12 px-6 lg:px-10 py-20 lg:grid-cols-[0.9fr_1.1fr]">
+      <div class="reveal relative">
+        <ResponsiveImage
+          path="/photos/my_portrait.jpeg"
+          alt="Portrait"
+          sizes="(min-width: 1024px) 22vw, 80vw"
+          class="block"
+          imgClass="aspect-[4/5] w-full max-w-sm rotate-[-0.6deg] rounded-2xl border border-border object-cover shadow-lg transition-transform hover:rotate-0"
+        />
+      </div>
+      <div class="reveal [transition-delay:120ms]">
+        <p class="mb-3 font-display text-sm italic tracking-[0.01em] text-cavern">About</p>
+        <h2 class="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+          Nice to meet you.
+        </h2>
+        <p class="mt-5 text-base leading-relaxed text-muted-foreground">
+          I studied Computer Science at {education.school} with a concentration in AI and a minor in
+          Japanese. I work across full-stack web, applied machine learning, and product design, and I
+          care about the small details that make software feel considered.
+        </p>
+        <dl class="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3">
+          <div>
+            <dt class="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Degree</dt>
+            <dd class="mt-1 font-display text-lg font-semibold">B.S. Computer Science</dd>
+          </div>
+          <div>
+            <dt class="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Concentration</dt>
+            <dd class="mt-1 font-display text-lg font-semibold">Artificial Intelligence</dd>
+          </div>
+          <div>
+            <dt class="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Minor</dt>
+            <dd class="mt-1 font-display text-lg font-semibold">Japanese</dd>
+          </div>
+        </dl>
+        <div class="mt-8 flex flex-wrap gap-2">
+          {certifications.map((c) => <Badge variant="tag">{c.name}</Badge>)}
+        </div>
+        <div class="mt-8">
+          <a href={withBase("/about")} class={`${buttonVariants({ variant: "outline" })} gap-2`}>
+            More about me
+            <Icon name="arrow-right" class="size-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* brushed seam from about to the playground section */}
+  <div class="reveal flex justify-center pt-14 sm:pt-16">
+    <div class="noren-divider" aria-hidden="true"><span class="noren-mark"></span></div>
+  </div>
+
+  {/* playground teaser */}
+  <Section
+    label="Playground"
+    title="Try my machine-learning projects"
+    description="Selected models from all projects that run in the browser. No data leaves your device."
+    class="seigaiha"
+  >
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
+      {
+        demos.map((d) => (
+          <div class="reveal">
+            <a
+              href={withBase("/playground#" + d)}
+              class="group relative flex h-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-[100ms] ease-in-out hover:-translate-y-1.5 hover:border-cavern/40 hover:shadow-xl after:absolute after:inset-x-0 after:-inset-y-2 after:content-[''] motion-reduce:transform-none motion-reduce:transition-none"
+            >
+              <span class="font-mono text-xs font-medium uppercase tracking-wider text-cavern">{demoMeta[d].tagline}</span>
+              <h3 class="mt-2 font-display text-xl font-semibold">{demoMeta[d].title}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{demoMeta[d].description}</p>
+              <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cavern">
+                Open demo
+                <Icon name="arrow-right" class="size-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
+              </span>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  {/* brushed seam from playground to the ending section */}
+  <div class="reveal flex justify-center pb-4">
+    <div class="noren-divider" aria-hidden="true"><span class="noren-mark"></span></div>
+  </div>
+
+  {/* ending section */}
+  <section class="mx-auto max-w-3xl px-6 pb-12">
+    <div class="reveal relative rounded-3xl border border-border bg-secondary/30 px-8 py-14 text-center paper-grain">
+      <p class="font-display text-2xl leading-snug sm:text-3xl">End of page</p>
+      <p class="mx-auto mt-4 max-w-md text-muted-foreground">
+        This is a place to show my work.
+        If you want see all the code, it's on GitHub.
+      </p>
+      <div class="mt-7 flex justify-center">
+        <a href={site.socials.github} rel="noopener noreferrer" target="_blank" class={`${buttonVariants({ size: "lg" })} gap-2`}>
+          <Icon name="github" class="size-4" />
+          Find me on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

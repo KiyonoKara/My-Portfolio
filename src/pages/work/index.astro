@@ -1,0 +1,28 @@
+---
+import Base from "@/layouts/Base.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { getProjects } from "@/lib/content";
+
+const projects = await getProjects();
+---
+
+<Base title="Work" description="Projects across full-stack web, applied ML, and product design.">
+  <section class="mx-auto max-w-7xl px-6 lg:px-10 pb-10 pt-16 sm:pt-20">
+    <p class="reveal mb-3 font-display text-sm italic tracking-[0.01em] text-cavern">Work</p>
+    <h1 class="reveal font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
+      Projects
+    </h1>
+    <p class="reveal mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+      {projects.length} projects across full-stack web, applied machine learning, and open source.
+      A few are interactive. Look for <span class="font-semibold text-cavern">Live Demo</span>.
+    </p>
+  </section>
+
+  <section class="seigaiha mx-auto max-w-7xl px-6 lg:px-10 pb-24">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {projects.map((project) => (
+        <div class="reveal"><ProjectCard project={project} class="h-full" /></div>
+      ))}
+    </div>
+  </section>
+</Base>

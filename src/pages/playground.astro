@@ -1,0 +1,110 @@
+---
+import Base from "@/layouts/Base.astro";
+import KanjiDemo from "@/components/demos/KanjiDemo.tsx";
+import TabelogDemo from "@/components/demos/TabelogDemo.tsx";
+import SentimentDemo from "@/components/demos/SentimentDemo.tsx";
+import { buttonVariants } from "@/components/ui/button";
+import Icon from "@/components/Icon.astro";
+import { demoMeta } from "@/lib/content";
+import { site } from "@/config/site";
+import { withBase } from "@/lib/base";
+
+const order = ["kanji", "tabelog", "sentiment"] as const;
+const slugFor = { kanji: "kanji-radical-match-ai", tabelog: "tabelog-ml", sentiment: "sns-sentiment-analysis" };
+const repoFor = { kanji: "Kanji-Radical-Match-AI", tabelog: "Tabelog-ML-Project", sentiment: "SNS-Sentiment-Analysis" };
+const marks = { kanji: { kana: "字", n: "01" }, tabelog: { kana: "食", n: "02" }, sentiment: { kana: "感", n: "03" } };
+const notes = {
+  kanji: "This runs the trained feedforward network with predictions precomputed.",
+  tabelog: "This demo runs item-item collaborative filtering only.",
+  sentiment: "This demo runs on data from the Logistic Regression model.",
+};
+const how = {
+  kanji: "The word is looked up in the network's output layer, read back as a probability over kanji radicals, and charted from most to least confident.",
+  tabelog: "Each restaurant's category ratings are filled in with item-item cosine similarity, then plotted against the observed means.",
+  sentiment: "The text is tokenized and stemmed. Every known token adds its learned weight, and a sigmoid turns the running total into a 0 to 1 score.",
+};
+const ghBase = site.socials.github.replace(/\/$/, "");
+---
+
+<Base title="Playground" description="Try my machine-learning projects. Everything runs in your browser and nothing is submitted.">
+  <section class="mx-auto max-w-7xl px-6 lg:px-10 pb-8 pt-16 sm:pt-20">
+    <p class="reveal mb-3 font-display text-sm italic tracking-[0.01em] text-cavern">Playground</p>
+    <h1 class="reveal font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
+      Try the ML models
+    </h1>
+    <p class="reveal mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+      Each demo runs <strong class="text-foreground">one selected model</strong> rebuilt from a larger project that
+      runs <strong class="text-foreground">within your browser</strong>. These are parts of
+      the projects. No text/data is saved.
+    </p>
+    <nav class="reveal mt-6 flex flex-wrap gap-2 [transition-delay:100ms]" aria-label="Jump to demo">
+      {order.map((d) => (
+        <a href={`#${d}`} class={buttonVariants({ variant: "outline", size: "sm" })}>{demoMeta[d].title}</a>
+      ))}
+    </nav>
+  </section>
+
+  {
+    order.map((d, i) => (
+      <section
+        id={d}
+        class:list={[
+          "relative scroll-mt-24 border-t border-border/60 py-16 sm:py-24",
+          i % 2 === 1 && "bg-secondary/30 paper-grain",
+        ]}
+      >
+        <div class="mx-auto max-w-4xl px-6">
+          <div class="reveal relative">
+            <span
+              class="pointer-events-none absolute -top-12 right-0 select-none font-display text-[6rem] font-bold leading-none text-cavern/[0.07] sm:-top-16 sm:text-[9rem]"
+              aria-hidden="true"
+            >
+              {marks[d].n}
+            </span>
+            <div class="flex items-center gap-3">
+              <span class="grid size-11 place-items-center rounded-xl bg-cavern/10 font-display text-2xl text-cavern" aria-hidden="true">
+                {marks[d].kana}
+              </span>
+              <p class="font-mono text-xs font-medium uppercase tracking-wider text-cavern">{demoMeta[d].tagline}</p>
+            </div>
+            <h2 class="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">{demoMeta[d].title}</h2>
+            <p class="mt-2 max-w-2xl text-muted-foreground">{demoMeta[d].description}</p>
+            <p class="mt-2 flex max-w-2xl items-start gap-2 rounded-lg border border-border/70 bg-muted/40 px-3 py-2 text-xs leading-relaxed text-muted-foreground">
+              <span class="mt-px inline-flex size-4 shrink-0 items-center justify-center rounded-full bg-cavern/15 font-mono text-[9px] font-bold text-cavern" aria-hidden="true">i</span>
+              {notes[d]}
+            </p>
+            <p class="mt-2 max-w-2xl text-xs leading-relaxed text-muted-foreground">
+              <span class="font-mono uppercase tracking-widest text-cavern">How it works</span>
+              {" — "}{how[d]}
+            </p>
+            <div class="mt-3 flex flex-wrap gap-x-5 gap-y-1 font-mono text-xs">
+              <a href={withBase(`/work/${slugFor[d]}`)} class="inline-flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-cavern">
+                read about the project
+                <Icon name="arrow-right" class="size-3.5" />
+              </a>
+              <a href={`${ghBase}/${repoFor[d]}`} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-cavern">
+                <Icon name="github" class="size-3.5" />
+                view source
+              </a>
+            </div>
+          </div>
+
+          <div class="reveal mt-8 overflow-hidden rounded-[18px_15px_17px_14px] border border-cavern/25 bg-card shadow-sm">
+            <div class="flex items-center justify-between gap-2 border-b border-border/60 bg-cavern/5 px-4 py-2.5">
+              <span class="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-cavern">
+                <span class="inline-block size-1.5 rounded-full bg-cavern"></span>
+                Runs live in your browser
+              </span>
+              <span class="font-mono text-[11px] text-muted-foreground">No data leaves the page</span>
+            </div>
+            <div class="p-4 sm:p-6">
+              {d === "kanji" && <KanjiDemo client:visible />}
+              {d === "tabelog" && <TabelogDemo client:visible />}
+              {d === "sentiment" && <SentimentDemo client:visible />}
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+</Base>

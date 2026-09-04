@@ -1,0 +1,183 @@
+---
+// latin subset only
+// CJK used in the design will fall back to the system CJK font
+import "@fontsource-variable/bricolage-grotesque/wght.css";
+import "@fontsource-variable/fraunces/wght.css";
+import "@fontsource-variable/jetbrains-mono/wght.css";
+import "@/styles/global.css";
+
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import { site } from "@/config/site";
+import { withBase } from "@/lib/base";
+
+interface Props {
+  title?: string;
+  description?: string;
+  // path relative to the base of an image
+  ogImage?: string;
+  // add the cavern background to <main> used on the home hero
+  atmosphere?: boolean;
+  // play the once-per-session curtain opening transition on the home page
+  intro?: boolean;
+}
+
+const {
+  title,
+  description = site.description,
+  ogImage = "/graphics/hero-graphic.svg",
+  atmosphere = false,
+  intro = false,
+} = Astro.props;
+
+const pageTitle = title ? title : site.name;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+const ogUrl = new URL(withBase(ogImage), Astro.site ?? Astro.url.origin).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* Content-Security-Policy. Strict and everything resolves to own
+         origin. In-browser demos don't fetch.
+         If a future demo needs to reach a remote source, relax connect-src
+         but this shouldn't be needed in the near future */}
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <link rel="canonical" href={canonical} />
+    <meta name="generator" content={Astro.generator} />
+
+    {/* Pages can inject <head> extras like  a hero-image <link rel="preload"> */}
+    <slot name="head" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#16788c" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e222e" media="(prefers-color-scheme: dark)" />
+
+    <!-- for embedders -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- no-flash theme init and enable JS-gated reveal animations -->
+    <script is:inline>
+      (() => {
+        document.documentElement.classList.add("js");
+        try {
+          if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+        } catch {}
+      })();
+    </script>
+
+    {
+      /* Opening curtain that's decided before the paint so there is no flash and plays once
+         per session and never when the visitor prefers reduced motion */
+      intro && (
+        <script is:inline>
+          (() => {
+            try {
+              var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+              if (!reduce && !sessionStorage.getItem("introShown")) {
+                document.documentElement.classList.add("intro");
+                sessionStorage.setItem("introShown", "1");
+              }
+            } catch (e) {}
+          })();
+        </script>
+      )
+    }
+  </head>
+
+  <body class="min-h-dvh antialiased">
+    {
+      /* Washi-style opening curtain hidden by default and only shows under html.intro */
+      intro && (
+        <div class="intro-curtain" aria-hidden="true">
+          <span class="intro-mark font-mono">Loading...</span>
+        </div>
+      )
+    }
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-cavern focus:px-4 focus:py-2 focus:text-primary-foreground"
+      >Skip to content</a
+    >
+    <Nav />
+    <main id="main" class:list={["min-h-[60vh]", atmosphere && "cavern-atmosphere paper-grain"]}>
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- reveal-on-scroll for opening curtain when html.intro is set -->
+    <script is:inline>
+      (() => {
+        const doc = document.documentElement;
+        const els = Array.from(document.querySelectorAll(".reveal"));
+        const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const showAll = () => els.forEach((el) => el.setAttribute("data-shown", "true"));
+
+        // wire up the reveal observer
+        // when the curtain is playing, it's deferred until it lifts
+        // so the hero rises*as the panel clears
+        const initReveals = () => {
+          if (!els.length) return;
+          if (!("IntersectionObserver" in window) || reduce) {
+            showAll();
+            return;
+          }
+          const io = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) {
+                  e.target.setAttribute("data-shown", "true");
+                  io.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.05, rootMargin: "0px 0px -6% 0px" }
+          );
+          els.forEach((el) => io.observe(el));
+          // safety net where it nevers leaves the content hidden if the observer hiccups
+          setTimeout(showAll, 1200);
+        };
+
+        if (doc.classList.contains("intro") && !reduce) {
+          const curtain = document.querySelector(".intro-curtain");
+          let lifted = false;
+          const lift = () => {
+            if (lifted) return;
+            lifted = true;
+            if (curtain) {
+              curtain.addEventListener("transitionend", () => curtain.remove(), { once: true });
+              // fallback removal
+              setTimeout(() => curtain && curtain.remove(), 1500);
+            }
+            doc.classList.add("intro-lift");
+            // hero rises with its own inline transition-delays
+            initReveals();
+          };
+          // hold the panel long enough for the seal mark to read
+          const start = () => setTimeout(lift, 820);
+          if (document.readyState === "complete") start();
+          else window.addEventListener("load", start, { once: true });
+          setTimeout(lift, 1900); // never let the curtain hang
+        } else {
+          initReveals();
+        }
+      })();
+    </script>
+  </body>
+</html>

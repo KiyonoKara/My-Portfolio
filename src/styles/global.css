@@ -1,0 +1,522 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Class-based dark mode: <html class="dark"> */
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Otaru "Blue Cavern" palette
+  Inspired by the blue cave of Otaru, Hokkaido which has glacial cavern blue as
+  the single dominant color, warm "rock" stone neutrals over washi paper.
+  Light theme is the default.
+*/
+:root {
+  --radius: 0.75rem;
+
+  /* Color scheme primitives with vibrant Otaru cavern with hexes handpicked from cave photos */
+  --paper: #f6f3ec; /* warm washi background */
+  --paper-2: #efeadf; /* slightly deeper paper */
+  --sumi: #172a30; /* deep blue-green ink foreground */
+  --cavern: #16788c; /* dominant glacial teal-blue (AA as text/fill on paper) */
+  --cavern-glow: #4cbccb; /* luminous cave-mouth blue, highlights/fills only */
+  --cavern-deep: #164f63; /* deep water */
+  --water-abyss: #142d43; /* darkest water */
+  --bamboo: #35772c; /* deep cliff-foliage green accent (AA as text/fill) */
+  --bamboo-soft: #7fa356; /* soft sage leaf tint, decorative fills only */
+  --rock: #6c7a85; /* blue-grey stone (reflected light) */
+  --rock-line: #d8d5cb; /* hairline borders on paper */
+
+  /* Semantic tokens for light */
+  --background: var(--paper);
+  --foreground: var(--sumi);
+  --card: #fbf9f3;
+  --card-foreground: var(--sumi);
+  --popover: #fbf9f3;
+  --popover-foreground: var(--sumi);
+  --primary: var(--cavern);
+  --primary-foreground: #f2fbfc;
+  --secondary: var(--paper-2);
+  --secondary-foreground: var(--cavern-deep);
+  --muted: var(--paper-2);
+  --muted-foreground: #5b686e;
+  --accent: var(--bamboo);
+  --accent-foreground: #f5faec;
+  --destructive: #b3402e;
+  --border: var(--rock-line);
+  --input: var(--rock-line);
+  --ring: var(--cavern);
+}
+
+.dark {
+  --paper: #0e222e; /* deep cavern water */
+  --paper-2: #143140;
+  --sumi: #e9ebe6;
+  --cavern: #46b7c4;
+  --cavern-glow: #6ed3df;
+  --cavern-deep: #164f63;
+  --water-abyss: #142d43;
+  --bamboo: #9ec46b; /* lifted foliage green for dark cavern water */
+  --bamboo-soft: #bcd89a;
+  --rock: #8b97a1;
+  --rock-line: #243642;
+
+  --background: var(--paper);
+  --foreground: var(--sumi);
+  --card: #123240;
+  --card-foreground: var(--sumi);
+  --popover: #123240;
+  --popover-foreground: var(--sumi);
+  --primary: var(--cavern);
+  --primary-foreground: #04171c;
+  --secondary: #163240;
+  --secondary-foreground: #d6ebef;
+  --muted: #163240;
+  --muted-foreground: #93a0a7;
+  --accent: var(--bamboo);
+  --accent-foreground: #0f1a08;
+  --destructive: #e0664f;
+  --border: var(--rock-line);
+  --input: #21343f;
+  --ring: var(--cavern-glow);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand utilities: bg-cavern, text-bamboo, etc. */
+  --color-cavern: var(--cavern);
+  --color-cavern-glow: var(--cavern-glow);
+  --color-cavern-deep: var(--cavern-deep);
+  --color-water-abyss: var(--water-abyss);
+  --color-bamboo: var(--bamboo);
+  --color-bamboo-soft: var(--bamboo-soft);
+  --color-rock: var(--rock);
+  --color-paper: var(--paper);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Uniform film grain across the whole page for a natural, slightly rough surface.
+     Fixed with pointer-events:none so it never interferes */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+  .dark body::after {
+    mix-blend-mode: screen;
+    opacity: 0.05;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--cavern) 25%, transparent);
+    color: var(--foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Paper-like texture for sections */
+  .paper-grain {
+    position: relative;
+  }
+  .paper-grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    mix-blend-mode: multiply;
+    background-image:
+      radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--rock) 22%, transparent) 0.5px, transparent 0);
+    background-size: 4px 4px;
+    /* Fade the grain in at the section's top/bottom so it never reads as a hard
+       rectangular block of texture (softens the seam under the noren dividers) */
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+  }
+  .dark .paper-grain::before {
+    mix-blend-mode: screen;
+    opacity: 0.2;
+  }
+
+  /* Atmospheric cavern glow for hero sections */
+  .cavern-atmosphere {
+    background:
+      radial-gradient(120% 80% at 12% -10%, color-mix(in oklab, var(--cavern-glow) 28%, transparent), transparent 60%),
+      radial-gradient(90% 70% at 100% 0%, color-mix(in oklab, var(--bamboo) 14%, transparent), transparent 55%),
+      linear-gradient(180deg, var(--paper), var(--paper-2));
+  }
+  .dark .cavern-atmosphere {
+    background:
+      radial-gradient(120% 80% at 12% -10%, color-mix(in oklab, var(--cavern-glow) 34%, transparent), transparent 58%),
+      radial-gradient(90% 70% at 100% 0%, color-mix(in oklab, var(--bamboo) 20%, transparent), transparent 52%),
+      linear-gradient(180deg, var(--water-abyss), var(--paper));
+  }
+
+  /* Ink divider */
+  .ink-rule {
+    height: 2px;
+    border: 0;
+    background:
+      linear-gradient(90deg, transparent, var(--rock) 12%, var(--cavern) 50%, var(--rock) 88%, transparent);
+    opacity: 0.55;
+    border-radius: 2px;
+  }
+
+  /* Noren-style section divider */
+  .noren-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    width: min(320px, 62%);
+    margin-inline: auto;
+    color: var(--cavern);
+  }
+  .noren-divider::before,
+  .noren-divider::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    border-radius: 2px;
+    opacity: 0.5;
+  }
+  .noren-divider::before {
+    background: linear-gradient(90deg, transparent, currentColor 88%);
+  }
+  .noren-divider::after {
+    background: linear-gradient(270deg, transparent, currentColor 88%);
+  }
+  .noren-mark {
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 1px;
+    transform: rotate(45deg);
+    background: currentColor;
+    opacity: 0.72;
+  }
+
+  .rough-underline {
+    text-decoration-line: underline;
+    text-decoration-style: double;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 7px;
+    text-decoration-color: color-mix(in oklab, var(--cavern) 42%, transparent);
+  }
+
+  /* Hero photo bottom fade */
+  .hero-fade {
+    -webkit-mask-image: linear-gradient(to bottom, #000 84%, rgba(0, 0, 0, 0.5) 93%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 84%, rgba(0, 0, 0, 0.5) 93%, transparent 100%);
+  }
+
+  /* Closing footer image */
+  .footer-fade {
+    -webkit-mask-image: linear-gradient(to top, #000 62%, rgba(0, 0, 0, 0.5) 82%, rgba(0, 0, 0, 0.18) 92%, transparent 100%);
+    mask-image: linear-gradient(to top, #000 62%, rgba(0, 0, 0, 0.5) 82%, rgba(0, 0, 0, 0.18) 92%, transparent 100%);
+  }
+
+  /* A very slightly off-kilter, taped photo look for the mini galleries */
+  .photo-tape::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    width: 46px;
+    height: 16px;
+    transform: translateX(-50%) rotate(-2.5deg);
+    background: color-mix(in oklab, var(--rock) 28%, transparent);
+    border: 1px solid color-mix(in oklab, var(--rock) 22%, transparent);
+    z-index: 2;
+  }
+
+  /* Skeleton for project cards with no cover art */
+  .skeleton-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 32%,
+      color-mix(in oklab, white 16%, transparent) 48%,
+      transparent 64%
+    );
+    transform: translateX(-100%);
+    animation: skeleton-sweep 3s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton-shimmer::after {
+      animation: none;
+    }
+  }
+}
+
+@keyframes skeleton-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  55%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Long-form case-study framing for MDX bodies */
+@layer components {
+  .prose {
+    color: var(--foreground);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    max-width: 68ch;
+  }
+  .prose > * + * {
+    margin-top: 1.15em;
+  }
+  .prose h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.75rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-top: 2.2em;
+    margin-bottom: 0.2em;
+  }
+  .prose h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-top: 1.6em;
+  }
+  .prose a {
+    color: var(--cavern);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .prose strong {
+    font-weight: 700;
+    color: var(--foreground);
+  }
+  .prose ul,
+  .prose ol {
+    padding-left: 1.3em;
+  }
+  .prose ul {
+    list-style: none;
+  }
+  .prose ul > li {
+    position: relative;
+  }
+  .prose ul > li::before {
+    content: "";
+    position: absolute;
+    left: -1.1em;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    transform: rotate(45deg);
+    background: var(--cavern);
+  }
+  .prose ol {
+    list-style: decimal;
+  }
+  .prose li {
+    margin-top: 0.4em;
+  }
+  .prose blockquote {
+    border-left: 3px solid var(--cavern);
+    padding: 0.2em 0 0.2em 1.1em;
+    color: var(--muted-foreground);
+    font-style: italic;
+  }
+  .prose code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--muted);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+  }
+}
+
+/* Reveal-on-scroll. The hidden state is gated behind `.js` (added by an inline
+   script), so if JavaScript is off or the observer fails, content is always
+   visible. A safety timer in Base.astro also reveals everything as a fallback. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  html.js .reveal[data-shown="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Opening curtain to reveal the home page
+   Hidden unless the head script opts in (html.intro) and fully skips
+   under reduced-motion (the head script never adds .intro in that case) */
+.intro-curtain {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.intro .intro-curtain {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(120% 90% at 50% 40%, color-mix(in oklab, var(--cavern-glow) 22%, transparent), transparent 62%),
+      linear-gradient(180deg, var(--paper), var(--paper-2));
+    transform: translateY(0);
+    transition: transform 0.9s cubic-bezier(0.7, 0, 0.2, 1);
+    will-change: transform;
+  }
+  html.intro.intro-lift .intro-curtain {
+    transform: translateY(-100%);
+  }
+  /* The seal-cave mark breathes in then rides up with the panel */
+  html.intro .intro-curtain .intro-mark {
+    font-size: 0.8125rem;
+    letter-spacing: 0.42em;
+    text-indent: 0.42em;
+    color: color-mix(in oklab, var(--cavern) 78%, var(--foreground));
+    opacity: 0;
+    transform: translateY(6px);
+    animation: intro-mark-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards;
+  }
+  html.intro.intro-lift .intro-curtain .intro-mark {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+}
+@keyframes intro-mark-in {
+  to {
+    opacity: 0.85;
+    transform: none;
+  }
+}
+
+/* Seigaiha background */
+@layer components {
+  .seigaiha {
+    position: relative;
+    isolation: isolate;
+  }
+  .seigaiha::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--cavern);
+    opacity: 0.05;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-30.00%2C-30.00%20A30.00%2C30.00%200%200%201%2030.00%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M-21.60%2C-30.00%20A21.60%2C21.60%200%200%201%2021.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M-13.80%2C-30.00%20A13.80%2C13.80%200%200%201%2013.80%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M-6.60%2C-30.00%20A6.60%2C6.60%200%200%201%206.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M30.00%2C-30.00%20A30.00%2C30.00%200%200%201%2090.00%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M38.40%2C-30.00%20A21.60%2C21.60%200%200%201%2081.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M46.20%2C-30.00%20A13.80%2C13.80%200%200%201%2073.80%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M53.40%2C-30.00%20A6.60%2C6.60%200%200%201%2066.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M90.00%2C-30.00%20A30.00%2C30.00%200%200%201%20150.00%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M98.40%2C-30.00%20A21.60%2C21.60%200%200%201%20141.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M106.20%2C-30.00%20A13.80%2C13.80%200%200%201%20133.80%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M113.40%2C-30.00%20A6.60%2C6.60%200%200%201%20126.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M0.00%2C0.00%20A30.00%2C30.00%200%200%201%2060.00%2C0.00%22%2F%3E%3Cpath%20d%3D%22M8.40%2C0.00%20A21.60%2C21.60%200%200%201%2051.60%2C0.00%22%2F%3E%3Cpath%20d%3D%22M16.20%2C0.00%20A13.80%2C13.80%200%200%201%2043.80%2C0.00%22%2F%3E%3Cpath%20d%3D%22M23.40%2C0.00%20A6.60%2C6.60%200%200%201%2036.60%2C0.00%22%2F%3E%3Cpath%20d%3D%22M-60.00%2C0.00%20A30.00%2C30.00%200%200%201%200.00%2C0.00%22%2F%3E%3Cpath%20d%3D%22M-51.60%2C0.00%20A21.60%2C21.60%200%200%201%20-8.40%2C0.00%22%2F%3E%3Cpath%20d%3D%22M-43.80%2C0.00%20A13.80%2C13.80%200%200%201%20-16.20%2C0.00%22%2F%3E%3Cpath%20d%3D%22M-36.60%2C0.00%20A6.60%2C6.60%200%200%201%20-23.40%2C0.00%22%2F%3E%3Cpath%20d%3D%22M60.00%2C0.00%20A30.00%2C30.00%200%200%201%20120.00%2C0.00%22%2F%3E%3Cpath%20d%3D%22M68.40%2C0.00%20A21.60%2C21.60%200%200%201%20111.60%2C0.00%22%2F%3E%3Cpath%20d%3D%22M76.20%2C0.00%20A13.80%2C13.80%200%200%201%20103.80%2C0.00%22%2F%3E%3Cpath%20d%3D%22M83.40%2C0.00%20A6.60%2C6.60%200%200%201%2096.60%2C0.00%22%2F%3E%3Cpath%20d%3D%22M-30.00%2C30.00%20A30.00%2C30.00%200%200%201%2030.00%2C30.00%22%2F%3E%3Cpath%20d%3D%22M-21.60%2C30.00%20A21.60%2C21.60%200%200%201%2021.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M-13.80%2C30.00%20A13.80%2C13.80%200%200%201%2013.80%2C30.00%22%2F%3E%3Cpath%20d%3D%22M-6.60%2C30.00%20A6.60%2C6.60%200%200%201%206.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M30.00%2C30.00%20A30.00%2C30.00%200%200%201%2090.00%2C30.00%22%2F%3E%3Cpath%20d%3D%22M38.40%2C30.00%20A21.60%2C21.60%200%200%201%2081.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M46.20%2C30.00%20A13.80%2C13.80%200%200%201%2073.80%2C30.00%22%2F%3E%3Cpath%20d%3D%22M53.40%2C30.00%20A6.60%2C6.60%200%200%201%2066.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M90.00%2C30.00%20A30.00%2C30.00%200%200%201%20150.00%2C30.00%22%2F%3E%3Cpath%20d%3D%22M98.40%2C30.00%20A21.60%2C21.60%200%200%201%20141.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M106.20%2C30.00%20A13.80%2C13.80%200%200%201%20133.80%2C30.00%22%2F%3E%3Cpath%20d%3D%22M113.40%2C30.00%20A6.60%2C6.60%200%200%201%20126.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M0.00%2C60.00%20A30.00%2C30.00%200%200%201%2060.00%2C60.00%22%2F%3E%3Cpath%20d%3D%22M8.40%2C60.00%20A21.60%2C21.60%200%200%201%2051.60%2C60.00%22%2F%3E%3Cpath%20d%3D%22M16.20%2C60.00%20A13.80%2C13.80%200%200%201%2043.80%2C60.00%22%2F%3E%3Cpath%20d%3D%22M23.40%2C60.00%20A6.60%2C6.60%200%200%201%2036.60%2C60.00%22%2F%3E%3Cpath%20d%3D%22M-60.00%2C60.00%20A30.00%2C30.00%200%200%201%200.00%2C60.00%22%2F%3E%3Cpath%20d%3D%22M-51.60%2C60.00%20A21.60%2C21.60%200%200%201%20-8.40%2C60.00%22%2F%3E%3Cpath%20d%3D%22M-43.80%2C60.00%20A13.80%2C13.80%200%200%201%20-16.20%2C60.00%22%2F%3E%3Cpath%20d%3D%22M-36.60%2C60.00%20A6.60%2C6.60%200%200%201%20-23.40%2C60.00%22%2F%3E%3Cpath%20d%3D%22M60.00%2C60.00%20A30.00%2C30.00%200%200%201%20120.00%2C60.00%22%2F%3E%3Cpath%20d%3D%22M68.40%2C60.00%20A21.60%2C21.60%200%200%201%20111.60%2C60.00%22%2F%3E%3Cpath%20d%3D%22M76.20%2C60.00%20A13.80%2C13.80%200%200%201%20103.80%2C60.00%22%2F%3E%3Cpath%20d%3D%22M83.40%2C60.00%20A6.60%2C6.60%200%200%201%2096.60%2C60.00%22%2F%3E%3Cpath%20d%3D%22M-30.00%2C90.00%20A30.00%2C30.00%200%200%201%2030.00%2C90.00%22%2F%3E%3Cpath%20d%3D%22M-21.60%2C90.00%20A21.60%2C21.60%200%200%201%2021.60%2C90.00%22%2F%3E%3Cpath%20d%3D%22M-13.80%2C90.00%20A13.80%2C13.80%200%200%201%2013.80%2C90.00%22%2F%3E%3Cpath%20d%3D%22M-6.60%2C90.00%20A6.60%2C6.60%200%200%201%206.60%2C90.00%22%2F%3E%3Cpath%20d%3D%22M30.00%2C90.00%20A30.00%2C30.00%200%200%201%2090.00%2C90.00%22%2F%3E%3Cpath%20d%3D%22M38.40%2C90.00%20A21.60%2C21.60%200%200%201%2081.60%2C90.00%22%2F%3E%3Cpath%20d%3D%22M46.20%2C90.00%20A13.80%2C13.80%200%200%201%2073.80%2C90.00%22%2F%3E%3Cpath%20d%3D%22M53.40%2C90.00%20A6.60%2C6.60%200%200%201%2066.60%2C90.00%22%2F%3E%3Cpath%20d%3D%22M90.00%2C90.00%20A30.00%2C30.00%200%200%201%20150.00%2C90.00%22%2F%3E%3Cpath%20d%3D%22M98.40%2C90.00%20A21.60%2C21.60%200%200%201%20141.60%2C90.00%22%2F%3E%3Cpath%20d%3D%22M106.20%2C90.00%20A13.80%2C13.80%200%200%201%20133.80%2C90.00%22%2F%3E%3Cpath%20d%3D%22M113.40%2C90.00%20A6.60%2C6.60%200%200%201%20126.60%2C90.00%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+    mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-30.00%2C-30.00%20A30.00%2C30.00%200%200%201%2030.00%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M-21.60%2C-30.00%20A21.60%2C21.60%200%200%201%2021.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M-13.80%2C-30.00%20A13.80%2C13.80%200%200%201%2013.80%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M-6.60%2C-30.00%20A6.60%2C6.60%200%200%201%206.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M30.00%2C-30.00%20A30.00%2C30.00%200%200%201%2090.00%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M38.40%2C-30.00%20A21.60%2C21.60%200%200%201%2081.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M46.20%2C-30.00%20A13.80%2C13.80%200%200%201%2073.80%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M53.40%2C-30.00%20A6.60%2C6.60%200%200%201%2066.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M90.00%2C-30.00%20A30.00%2C30.00%200%200%201%20150.00%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M98.40%2C-30.00%20A21.60%2C21.60%200%200%201%20141.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M106.20%2C-30.00%20A13.80%2C13.80%200%200%201%20133.80%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M113.40%2C-30.00%20A6.60%2C6.60%200%200%201%20126.60%2C-30.00%22%2F%3E%3Cpath%20d%3D%22M0.00%2C0.00%20A30.00%2C30.00%200%200%201%2060.00%2C0.00%22%2F%3E%3Cpath%20d%3D%22M8.40%2C0.00%20A21.60%2C21.60%200%200%201%2051.60%2C0.00%22%2F%3E%3Cpath%20d%3D%22M16.20%2C0.00%20A13.80%2C13.80%200%200%201%2043.80%2C0.00%22%2F%3E%3Cpath%20d%3D%22M23.40%2C0.00%20A6.60%2C6.60%200%200%201%2036.60%2C0.00%22%2F%3E%3Cpath%20d%3D%22M-60.00%2C0.00%20A30.00%2C30.00%200%200%201%200.00%2C0.00%22%2F%3E%3Cpath%20d%3D%22M-51.60%2C0.00%20A21.60%2C21.60%200%200%201%20-8.40%2C0.00%22%2F%3E%3Cpath%20d%3D%22M-43.80%2C0.00%20A13.80%2C13.80%200%200%201%20-16.20%2C0.00%22%2F%3E%3Cpath%20d%3D%22M-36.60%2C0.00%20A6.60%2C6.60%200%200%201%20-23.40%2C0.00%22%2F%3E%3Cpath%20d%3D%22M60.00%2C0.00%20A30.00%2C30.00%200%200%201%20120.00%2C0.00%22%2F%3E%3Cpath%20d%3D%22M68.40%2C0.00%20A21.60%2C21.60%200%200%201%20111.60%2C0.00%22%2F%3E%3Cpath%20d%3D%22M76.20%2C0.00%20A13.80%2C13.80%200%200%201%20103.80%2C0.00%22%2F%3E%3Cpath%20d%3D%22M83.40%2C0.00%20A6.60%2C6.60%200%200%201%2096.60%2C0.00%22%2F%3E%3Cpath%20d%3D%22M-30.00%2C30.00%20A30.00%2C30.00%200%200%201%2030.00%2C30.00%22%2F%3E%3Cpath%20d%3D%22M-21.60%2C30.00%20A21.60%2C21.60%200%200%201%2021.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M-13.80%2C30.00%20A13.80%2C13.80%200%200%201%2013.80%2C30.00%22%2F%3E%3Cpath%20d%3D%22M-6.60%2C30.00%20A6.60%2C6.60%200%200%201%206.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M30.00%2C30.00%20A30.00%2C30.00%200%200%201%2090.00%2C30.00%22%2F%3E%3Cpath%20d%3D%22M38.40%2C30.00%20A21.60%2C21.60%200%200%201%2081.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M46.20%2C30.00%20A13.80%2C13.80%200%200%201%2073.80%2C30.00%22%2F%3E%3Cpath%20d%3D%22M53.40%2C30.00%20A6.60%2C6.60%200%200%201%2066.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M90.00%2C30.00%20A30.00%2C30.00%200%200%201%20150.00%2C30.00%22%2F%3E%3Cpath%20d%3D%22M98.40%2C30.00%20A21.60%2C21.60%200%200%201%20141.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M106.20%2C30.00%20A13.80%2C13.80%200%200%201%20133.80%2C30.00%22%2F%3E%3Cpath%20d%3D%22M113.40%2C30.00%20A6.60%2C6.60%200%200%201%20126.60%2C30.00%22%2F%3E%3Cpath%20d%3D%22M0.00%2C60.00%20A30.00%2C30.00%200%200%201%2060.00%2C60.00%22%2F%3E%3Cpath%20d%3D%22M8.40%2C60.00%20A21.60%2C21.60%200%200%201%2051.60%2C60.00%22%2F%3E%3Cpath%20d%3D%22M16.20%2C60.00%20A13.80%2C13.80%200%200%201%2043.80%2C60.00%22%2F%3E%3Cpath%20d%3D%22M23.40%2C60.00%20A6.60%2C6.60%200%200%201%2036.60%2C60.00%22%2F%3E%3Cpath%20d%3D%22M-60.00%2C60.00%20A30.00%2C30.00%200%200%201%200.00%2C60.00%22%2F%3E%3Cpath%20d%3D%22M-51.60%2C60.00%20A21.60%2C21.60%200%200%201%20-8.40%2C60.00%22%2F%3E%3Cpath%20d%3D%22M-43.80%2C60.00%20A13.80%2C13.80%200%200%201%20-16.20%2C60.00%22%2F%3E%3Cpath%20d%3D%22M-36.60%2C60.00%20A6.60%2C6.60%200%200%201%20-23.40%2C60.00%22%2F%3E%3Cpath%20d%3D%22M60.00%2C60.00%20A30.00%2C30.00%200%200%201%20120.00%2C60.00%22%2F%3E%3Cpath%20d%3D%22M68.40%2C60.00%20A21.60%2C21.60%200%200%201%20111.60%2C60.00%22%2F%3E%3Cpath%20d%3D%22M76.20%2C60.00%20A13.80%2C13.80%200%200%201%20103.80%2C60.00%22%2F%3E%3Cpath%20d%3D%22M83.40%2C60.00%20A6.60%2C6.60%200%200%201%2096.60%2C60.00%22%2F%3E%3Cpath%20d%3D%22M-30.00%2C90.00%20A30.00%2C30.00%200%200%201%2030.00%2C90.00%22%2F%3E%3Cpath%20d%3D%22M-21.60%2C90.00%20A21.60%2C21.60%200%200%201%2021.60%2C90.00%22%2F%3E%3Cpath%20d%3D%22M-13.80%2C90.00%20A13.80%2C13.80%200%200%201%2013.80%2C90.00%22%2F%3E%3Cpath%20d%3D%22M-6.60%2C90.00%20A6.60%2C6.60%200%200%201%206.60%2C90.00%22%2F%3E%3Cpath%20d%3D%22M30.00%2C90.00%20A30.00%2C30.00%200%200%201%2090.00%2C90.00%22%2F%3E%3Cpath%20d%3D%22M38.40%2C90.00%20A21.60%2C21.60%200%200%201%2081.60%2C90.00%22%2F%3E%3Cpath%20d%3D%22M46.20%2C90.00%20A13.80%2C13.80%200%200%201%2073.80%2C90.00%22%2F%3E%3Cpath%20d%3D%22M53.40%2C90.00%20A6.60%2C6.60%200%200%201%2066.60%2C90.00%22%2F%3E%3Cpath%20d%3D%22M90.00%2C90.00%20A30.00%2C30.00%200%200%201%20150.00%2C90.00%22%2F%3E%3Cpath%20d%3D%22M98.40%2C90.00%20A21.60%2C21.60%200%200%201%20141.60%2C90.00%22%2F%3E%3Cpath%20d%3D%22M106.20%2C90.00%20A13.80%2C13.80%200%200%201%20133.80%2C90.00%22%2F%3E%3Cpath%20d%3D%22M113.40%2C90.00%20A6.60%2C6.60%200%200%201%20126.60%2C90.00%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-size: 56px 56px, 100% 100%;
+    mask-size: 56px 56px, 100% 100%;
+    -webkit-mask-repeat: repeat, no-repeat;
+    mask-repeat: repeat, no-repeat;
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+  .dark .seigaiha::before {
+    background-color: var(--cavern-glow);
+    opacity: 0.07;
+  }
+
+  /* Animated noren draw-in: the two brush strokes sweep out from the center and
+     the small ink diamond settles in after a seam. Plays when
+     the wrapping .reveal enters and is fully skipped under reduced motion */
+  @media (prefers-reduced-motion: no-preference) {
+    html.js .reveal .noren-divider::before,
+    html.js .reveal .noren-divider::after {
+      transform: scaleX(0);
+      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+    }
+    html.js .reveal .noren-divider::before { transform-origin: right center; }
+    html.js .reveal .noren-divider::after { transform-origin: left center; }
+    html.js .reveal[data-shown="true"] .noren-divider::before,
+    html.js .reveal[data-shown="true"] .noren-divider::after {
+      transform: scaleX(1);
+    }
+    html.js .reveal .noren-mark {
+      transform: rotate(45deg) scale(0);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.55s;
+    }
+    html.js .reveal[data-shown="true"] .noren-mark {
+      transform: rotate(45deg) scale(1);
+    }
+  }
+}

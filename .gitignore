@@ -27,3 +27,7 @@ vite.config.ts.timestamp-*
 Kanji-Radical-Match-AI/
 Tabelog-ML-Project/
 SNS-Sentiment-Analysis/
+
+# Full-res images
+# Optimize with `pnpm images` and keep a backup of the originals
+raw-images/

@@ -1,0 +1,47 @@
+---
+title: "SNS Sentiment Analysis"
+tagline: "NLP you can try"
+short_description: "Three models trained to score social-media text on a 0.0 to 1.0 inflammatory scale."
+description: "Three models (Logistic Regression, a Feedforward NN, and BERT) are trained to score social-media text on a 0.0 to 1.0 inflammatory scale, all sharing one preprocessing pipeline for directly comparable outputs."
+period: "Mar – Apr 2024"
+year: 2024
+role: "Dataset & Model Development"
+stack: ["Python", "PyTorch", "scikit-learn", "Hugging Face", "BERT"]
+tags: ["NLP", "Model comparison", "Interactive"]
+kind: ["coursework"]
+accent: "cavern"
+variant: "grid"
+cover: "/graphics/sns-graphic.svg"
+featured: true
+order: 5
+demo: "sentiment"
+repo: "SNS-Sentiment-Analysis"
+links: {}
+---
+
+I built a project with a partner for my Natural Language Processing course to evaluate the inflammatory potential of social media (SNS) texts.
+We trained three very different models to score texts on a 0.0 to 1.0 scale, then
+compared them side by side.
+
+## Models used
+- Logistic Regression
+- Feedforward Neural Network
+- BERT transformer with fine-tuning.
+
+## Datasets and modeling
+
+We combined two Kaggle datasets. One had six label columns that were "malignant," "highly
+malignant," "rude," "threat," "abuse," and "loathe". The other was a single binary
+label. Together they held about 800,000 rows. Our ML models couldn't train on all of them, so 80,000 entries were randomly selected.
+
+The models were trained on the same preprocessed data. Tuned models were also trained to compare against the base models.
+Findings showed that the tuned models performed better with more testing accuracy. Of all regular models, the neural network performed best.
+Of all tuned models, BERT was the best-performing model and was slightly better than the neural network.
+
+## Results
+
+The interactable deliverable is a console GUI where you enter can text and get a live prediction from a selected model.
+The prediction is a confidence score of how potentially inflammatory the text is from a 0.0 to 1.0 scale.
+
+> The demo runs a Logistic Regression model in your browser because the FFNN and BERT weights
+> are too large to fit in this site, so they appear as results instead of live inference.

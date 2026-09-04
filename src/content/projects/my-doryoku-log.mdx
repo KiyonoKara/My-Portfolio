@@ -1,0 +1,52 @@
+---
+title: "My Doryoku Log"
+tagline: "Personal finance & time tracking"
+short_description: "A simple finance and time-tracking app for general productivity."
+description: "A finance and time-tracking app in SvelteKit 5 + TypeScript that does two things well: categorize and export transactions, and time named tasks, both with round-trip CSV."
+period: "Jan – Jun 2026"
+year: 2026
+role: "Developer"
+stack: ["SvelteKit 5", "TypeScript", "CSV", "Vite"]
+tags: ["Full-stack", "Product", "DX"]
+kind: ["personal"]
+accent: "cavern"
+variant: "grid"
+cover: "/graphics/mdl_banner.svg"
+featured: true
+order: 2
+repo: "My-Doryoku-Log"
+links: {}
+---
+
+**My Doryoku Log** is a personal tool I built to learn SvelteKit and web development in general.
+I also just wanted to have a tool to time my own work/tasks/activities for free. It focuses on two features that
+try to do each of them really well, finance tracking and time keeping. *Doryoku* (努力) means effort, and I thought it
+was funny and fitting to put that in the app's name.
+
+## Finance tracking
+
+The app can categorize transactions, edit them inline, **export to CSV**, and **import them back** as
+long as the file matches the app's format. I added CSV import/export so users could load data from other devices or restore
+their data.
+
+## Time tracking
+
+The app lets users name a task and give it a category before time it. It contains the same editing features, and CSV features.
+It shows a nice clean record of time spent on tasks.
+
+## Multi-platform app
+
+I packaged the app as a desktop app with Electron so it could work on Windows, Mac, and Linux. I used SQLite so the app
+could store data locally, and I learned that Electron needs to rebuild that module natively, so I needed to create a custom
+build script for each platform. To fully ship it, I created GitHub workflows to build the app for each platform and publish
+it to GitHub releases.
+
+## Trying the app
+You can try the app from the releases page on the GitHub repo. I illustrated an icon for it to be extra fancy.
+
+## Why
+
+I'm interested in design and wanted to push my taste and UI/UX design skills to create something I like.
+The interface has depth, and I wanted to go for an official feel rather than spamming gradients.
+I built it in **SvelteKit 5** with **TypeScript** since it conveniently handled reactivity, forms, and states better than
+React given that the app was small.

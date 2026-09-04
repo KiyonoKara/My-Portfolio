@@ -1,0 +1,51 @@
+---
+title: "Clear Aligner App"
+tagline: "HIPAA provider dashboard"
+short_description: "A patient-management platform for a dental provider to track clear-aligner treatment inside Google Workspace."
+description: "A patient-management platform for a dental provider to track clear-aligner treatment inside Google Workspace such as enrollment, photo check-ins, reminders, and stage progression."
+period: "May – Aug 2026"
+year: 2026
+role: "Lead Developer"
+stack: ["Google Apps Script", "JavaScript", "Google Workspace", "HTML/CSS"]
+tags: ["HIPAA", "Healthcare", "Dashboard"]
+kind: ["client"]
+accent: "cavern"
+variant: "seal"
+cover: "/graphics/clear-aligner-app-graphic.svg"
+image: "/images/clear_aligner_app_work_sample.png"
+featured: true
+order: 1
+links: {}
+---
+
+I built an internal application for a dental care provider to track each patient's clear-aligner journey without leaving
+the tools they already use. I designed and shipped a tailored dashboard and automation
+layer on **Google Apps Script**, keeping everything inside their **Google Workspace** so the
+system stayed **HIPAA-compliant**.
+
+## Features
+
+- **Patient enrollment** with a structured intake and record schema.
+- **Photo-based check-ins** for patients to submit progress without an office visit.
+- **Provider review workflows** for approving stages and refinement sets.
+- **Automated reminders and status tracking** across treatment stages and appointments.
+- **Treatment progress management** like stages, refinements, and feedback in one interface.
+
+## System design
+The system was designed to stay within the Google Workspace ecosystem since it was already integrated
+into the provider's email address and Google Drive. The dashboard and update portal were built using **Google Apps Script**.
+The update portal is patient-facing and accounts for patients that don't have a Google account, so the system sends an email
+with a secure link to the update portal for them to submit photos of their clear-aligner. The update portal was separate from the
+dashboard since access was set to everyone, while the dashboard is only accessible to the provider's organization. This
+design made sure no sensitive information left the office. The data was stored in **Google Sheets** for easy access and
+management. This project was smaller, and it was easier for the database to be in the provider's custody instead of third-party storage.
+
+## My work
+
+I owned the **full development lifecycle** like requirements gathering, product design, system
+design, workflow definition, frontend and backend implementation, compliance research, QA,
+onboarding materials, deployment support, and post-launch fixes.
+
+I enabled the provider with as many CRUD permissions as possible, such as control over the patient records, scheduling, reminders,
+treatment stages, refinement sets, and feedback. This improved the provider's ability to manage patients using clear aligners.
+This helped patients only submit the required information since the provider didn't need as much data as the previous system they used.

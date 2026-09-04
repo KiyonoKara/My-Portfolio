@@ -1,0 +1,59 @@
+---
+title: "Tabelog ML"
+tagline: "Recommender you can try"
+short_description: "A machine learning project to recommend restaurants based on user reviews."
+description: "Bayesian linear and Beta regression over nearly 3,000 curated restaurants, plus item-item collaborative filtering to fill in missing category ratings, all on Tabelog data."
+period: "Mar – Apr 2025"
+year: 2025
+role: "Dataset & Model Development"
+stack: ["Python", "R", "Streamlit", "NumPy", "pandas"]
+tags: ["Machine learning", "Collaborative Filtering", "Bayesian Beta Regression"]
+kind: ["coursework"]
+accent: "cavern"
+variant: "grid"
+cover: "/graphics/tabelog-ml-graphic.svg"
+image: "/images/tabelog-ml-img.png"
+kana: "食べログ"
+gallery: ["/images/tabelog_ml_app_img_1.png", "/images/tabelog_ml_app_img_2.png"]
+featured: true
+order: 4
+demo: "tabelog"
+repo: "Tabelog-ML-Project"
+links: {}
+---
+
+For my Machine Learning 2 course, my partner and I had to show two different modeling
+approaches, and we built both to evaluate data from Tabelog, Japan's restaurant-review platform.
+
+## Data collection and datasets
+
+I worked on a program that scraped per-restaurant reviews from Tabelog and saved data across six rating categories.
+The six categories are food and taste, service, atmosphere, cost performance, alcohol and drink, and an overall rating that is
+independent of the other five. We also assembled a curated set of nearly 3,000 restaurants
+with features such as review count, photo count, day and night price ranges, and like and
+bookmark counts.
+
+## Recommendations with Bayesian models
+
+We fit a Bayesian linear model and a Beta regression in R. Given a user-written review of
+the features they want, the Beta model returns the five restaurants most similar to that
+request. This was the model and approach that recommended places based on a user's review.
+
+## Filling in missing ratings with collaborative filtering
+
+The other approach to the data was item-item collaborative filtering, which filled in missing category
+ratings. It is pure math with no training or special layers. This approach worked but the main issue was that cosine
+similarity over the rating dimensions tends to over-inflate the imputed values since many of the ratings across the five categories
+were missing. This happened because the overall rating is the only required rating on Tabelog.
+Since we needed to demonstrate our understanding of the concepts, we used what we learned to fill in the missing ratings.
+We flagged that other approaches, such as content-based filtering or an NLP-based solution,
+might've been better in the writeup instead of hiding it.
+
+## Interactive application
+
+The collaborative filtering code was shipped as a Streamlit app that accepts a Tabelog URL, scrapes the restaurant's
+reviews, and shows whether the place is recommended along with charts. The app also saves restaurants to use later.
+A lot of the effort went into the scraping.
+
+> The live demo rebuilds the collaborative filtering step in the browser over a static
+> snapshot of the data. There's no scraping nor server involved.

@@ -1,0 +1,54 @@
+---
+title: "DevCred"
+tagline: "Full-stack Q&A + careers"
+short_description: "A Q&A and job-networking platform inspired by Stack Overflow."
+description: "A Q&A and job-networking platform inspired by Stack Overflow, with recruiter and candidate roles, job boards, notifications, profile analytics, and privacy-aware direct messages."
+period: "Sep – Dec 2025"
+year: 2025
+role: "Backend-leaning Fullstack Developer"
+stack: ["TypeScript", "React", "Node.js", "MongoDB", "Jest"]
+tags: ["Full-stack", "Testing", "Teamwork"]
+kind: ["personal"]
+accent: "rock"
+variant: "ink"
+cover: "/graphics/devcred-graphic.svg"
+image: "/images/devcred_job_fair_coding_tournament.png"
+gallery: ["/images/devcred_home.png", "/images/devcred_job_fair_coding_tournament.png"]
+featured: true
+order: 3
+repo: "DevCred"
+links: {}
+---
+
+Over a full semester, I worked in a team of three to build **DevCred**, a Q&A platform inspired by
+Stack Overflow, extended with recruiting and job-networking features.
+
+## Beyond a clone
+The features that were added were:
+- **Role-based accounts** for recruiters and candidates, with job boards and job fairs.
+- **Profile analytics**, notifications, resume upload, and job-application history.
+- Revised direct messaging system.
+- A reworked interface across the whole product.
+
+## Features/revisions I made
+- DM deletion
+- DM backend revamped to avoid storing duplicate messages
+- Job fairs with interactions such as chat rooms and coding tournaments
+- Piloted the notification feature where team members finalized it to work with the rest of the application.
+
+## Bilateral DM deletion
+
+I worked on bilateral direct message deletion. By making this design choice, a message is permanently
+removed from the database only when *both* parties delete it. If one person deletes a DM channel
+but the other keeps it and later sends a new message, the deleter regains access. Getting
+that state machine to work as intended required a schema overhaul and edge-cases to be handled.
+
+## Challenges
+Cypress UI tests were challenging to write since there were complex features such as PDF uploads. Frontend and backend
+integration with OpenAPI validation frequently mismatched and caused test failures. These were solved by writing more
+specific test suites to test parts of the larger feature and having multiple people audit the schemas.
+
+## Quality assurance
+
+I wrote **unit and integration tests with Jest** covering backend routes and updated schemas, to catch
+feature regressions as three people moved fast in delivering the proposed features.

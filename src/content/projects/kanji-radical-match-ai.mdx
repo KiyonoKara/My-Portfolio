@@ -1,0 +1,51 @@
+---
+title: "Kanji Radical Match AI"
+tagline: "Neural net you can try"
+short_description: "A neural network that maps English words to kanji radicals that are most associated with their meaning."
+description: "A feedforward neural network that maps English words to the kanji radicals most associated with their meaning, trained on a custom dataset built from EDRDG's KRADFILE."
+period: "Mar – Apr 2024"
+year: 2024
+role: "Dataset & Model Development"
+stack: ["Python", "PyTorch", "NumPy", "Matplotlib"]
+tags: ["Neural networks", "Japanese", "Interactive"]
+kind: ["coursework"]
+accent: "cavern"
+variant: "seal"
+cover: "/graphics/kanji-radical-match-ai-graphic.svg"
+kana: "漢字"
+featured: true
+order: 6
+demo: "kanji"
+repo: "Kanji-Radical-Match-AI"
+links: {}
+---
+
+I worked in a team of four for my Foundations of Artificial Intelligence course to build a neural network that maps
+English words to the kanji radicals most associated with their meaning. I worked on building a custom dataset from different sources,
+the architecture of the neural network, and training and testing it.
+
+## Dataset
+
+There was no ready-made English to radical mapping, we needed to create one. We chained English to kanji, kanji to English, and kanji to radical to assemble
+an English to radical training set. The sources included pre-made JSON files which were originally derived from the EDRDG's KRADFILE.
+
+## Model development and architecture
+
+The model developed was a feedforward neural network that learns to map an English word that's represented as a vocabulary-sized tensor
+to a probability distribution over all kanji radicals. It takes an English word and returns a probability for every radical on
+a 0.0 to 1.0 scale, then ranks the top 10 radicals it associates with the word. This is a multi-label model since one word can have a greater-than-zero probability with
+multiple radicals. In this project, one word is simply a one-hot encoding of the vocabulary, and the target is a set of radical probabilities.
+There's no sequence or 2D grid, so a feedforward neural network was the most realistic choice.
+
+
+## Results
+The initial model, V3, generally predicted lower probabilities. After adjusting the architecture, the final model, V4,
+predicted higher probabilities where confidence dropped sharply with radicals that were not associated.
+From these results, the model was able to show connections between English words and radicals that had similar meanings.
+
+## Interactive app
+The project has a console GUI, and from there, it accepts English input and plots the chosen radicals against their
+probabilities in a Matplotlib bar chart.
+
+> The live demo displays a chart, and all predictions were precomputed from the trained model.
+> It runs instantly with no Python nor server.

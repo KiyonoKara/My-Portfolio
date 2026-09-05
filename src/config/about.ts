@@ -81,7 +81,7 @@ export const studyAbroad: Abroad[] = [
     location: "Tokyo, Japan",
     period: "Jun – Jul 2024",
     description:
-      "Continuing the immersion in Tokyo. I worked on my Japanese through courses at Waseda University, and conversation sessions held at Sophia University with its students, with further engagement across Kanagawa and Saitama prefectures.",
+      "Continuing the immersion in Tokyo. I studied Japanese through courses at Waseda University, and conversation sessions held at Sophia University with its students, with further engagement across Kanagawa and Saitama prefectures.",
     photos: [
       { src: "/photos/tokyo_view.jpeg", alt: "View of Tokyo", caption: "Sumida, Tokyo" },
         { src: "/photos/waseda_university.jpeg", alt: "Waseda University Building", caption: "Shinjuku, Tokyo" },

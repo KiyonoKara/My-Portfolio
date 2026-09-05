@@ -38,7 +38,7 @@ The features that were added were:
 
 ## Bilateral DM deletion
 
-I worked on bilateral direct message deletion. By making this design choice, a message is permanently
+I implemented bilateral direct message deletion. By making this design choice, a message is permanently
 removed from the database only when *both* parties delete it. If one person deletes a DM channel
 but the other keeps it and later sends a new message, the deleter regains access. Getting
 that state machine to work as intended required a schema overhaul and edge-cases to be handled.

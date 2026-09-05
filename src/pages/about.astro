@@ -42,7 +42,7 @@ const additionalExp = await getAdditionalExperiences();
   <div class="mx-auto max-w-7xl px-6 lg:px-10"><hr class="ink-rule" /></div>
 
   {/* education */}
-  <Section label="Education" title="University">
+  <Section title="University">
     <div class="reveal mt-8 rounded-2xl border border-border bg-card p-6 shadow-sm">
       <div class="flex flex-wrap items-baseline justify-between gap-2">
         <h3 class="font-display text-2xl font-semibold">{education.school}</h3>
@@ -70,7 +70,7 @@ const additionalExp = await getAdditionalExperiences();
   </Section>
 
   {/* Certifications */}
-  <Section label="Certifications" title="Certifications" class="pt-0">
+  <Section title="Certifications" class="pt-0">
     <div class="mt-8 grid gap-4 sm:grid-cols-2">
       {
         certifications.map((c) => (
@@ -87,9 +87,8 @@ const additionalExp = await getAdditionalExperiences();
 
   {/* study abroad */}
   <Section
-    label="Study abroad"
-    title="Time spent abroad"
-    description="A term in London and two programs in Japan. Open a gallery to see a few photos from each."
+    title="Study abroad"
+    description="A semester in London and a dialogue in Japan. There are a few photos from each."
     class="pt-0"
   >
     <div class="mt-8 flex flex-col gap-5">
@@ -136,7 +135,8 @@ const additionalExp = await getAdditionalExperiences();
   </Section>
 
   {/* skills */}
-  <Section label="Toolkit" title="Skills" class="pt-0">
+  <!--<Section label="Toolkit" title="Skills" class="pt-0">-->
+  <Section title="Skills" class="pt-0">
     <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {skills.map((s) => (
         <div class="reveal rounded-2xl border border-border bg-card p-5 shadow-sm">
@@ -150,12 +150,12 @@ const additionalExp = await getAdditionalExperiences();
   </Section>
 
   {/* main experience */}
-  <Section label="Experience" title="Where I've worked" class="pt-0">
+  <Section title="Professional Experience" class="pt-0">
     <div class="mt-10 max-w-3xl"><Timeline items={featuredExp} /></div>
   </Section>
 
   {additionalExp.length > 0 && (
-    <Section label="Additional experience" title="Other roles" class="pt-0">
+    <Section title="Additional Experience" class="pt-0">
       <div class="mt-10 max-w-3xl"><Timeline items={additionalExp} /></div>
     </Section>
   )}

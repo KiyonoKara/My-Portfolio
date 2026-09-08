@@ -4,6 +4,11 @@
   "description": "My dev portfolio",
   "type": "module",
   "packageManager": "pnpm@11.15.1",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=11.15.1"
+  },
+  "private": true,
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

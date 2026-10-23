@@ -2,9 +2,42 @@
 import Base from "@/layouts/Base.astro";
 import { buttonVariants } from "@/components/ui/button";
 import { withBase } from "@/lib/base";
+import { getCanonicalPaths, buildPathIndex } from "@/lib/routes";
+
+const pathIndex = buildPathIndex(await getCanonicalPaths());
+const base = import.meta.env.BASE_URL;
 ---
 
 <Base title="Not found" description="This page drifted off into the cavern.">
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+    <!-- case-insensitive redirect to the main path -->
+    <script is:inline define:vars={{ base, pathIndex }}>
+      (() => {
+        const path = location.pathname;
+        // "/My-Portfolio"
+        const root = base.replace(/\/$/, "");
+
+        const lower = path.toLowerCase();
+        const lowerRoot = root.toLowerCase();
+        if (lower !== lowerRoot && lower.indexOf(lowerRoot + "/") !== 0) return;
+
+        const rest = path.slice(root.length);
+        const key = rest.replace(/\/+$/, "").toLowerCase() || "/";
+        const canonical = pathIndex[key];
+        if (canonical === undefined) return; // no such page, leave the 404 up
+
+        const target =
+          canonical === "/" ? root + "/" : root + canonical + (/\/$/.test(rest) ? "/" : "");
+        if (target === path) {
+            return;
+        }
+        // redirect
+        location.replace(target + location.search + location.hash);
+      })();
+    </script>
+  </Fragment>
+
   <section class="cavern-atmosphere paper-grain">
     <div class="mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-6 py-24 text-center">
       <p class="font-display text-8xl font-semibold text-cavern">404</p>
